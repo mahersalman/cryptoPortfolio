@@ -17,8 +17,7 @@
             <div class="flex items-center space-x-6">
               <a href="#" class="hover:text-yellow-400 transition duration-300">Dashboard</a>
               <a href="#" class="hover:text-yellow-400 transition duration-300">Markets</a>
-              <a href="#" class="hover:text-yellow-400 transition duration-300">Trade</a>
-              <a href="#" class="bg-yellow-500 text-black px-4 py-2 rounded-full hover:bg-yellow-400 transition duration-300">Sign Up</a>
+              <a href="#" class="bg-yellow-500 text-black px-4 py-2 rounded-full hover:bg-yellow-400 transition duration-300">Connect Wallet</a>
               <button id="btnTheme" class="border border-slate-700 rounded py-1 px-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8-8h1M4 12H3m15.364-7.364l-.707.707M6.343 6.343l-.707.707m12.728 12.728l-.707-.707M6.343 17.657l-.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z" />
@@ -31,7 +30,6 @@
           </nav>
           <main class="container mx-auto p-6 ">
             <h1 class="text-4xl font-bold mb-8 gradient-text">Your Crypto Portfolio</h1>
-      
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
               <!-- Total Balance Card -->
               <div class="glassmorphism p-6 border rounded-3xl border-slate-400 dark:border-slate-700">
@@ -64,34 +62,33 @@
               <div id="priceUpdates" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
             </div>
             
-            <div class="mt-8 mx-auto flex flex-col items-center justify-center space-x-40 border rounded-3xl border-slate-400 dark:border-slate-700 p-4 w-full">
+            <div class="mt-8 mx-4 lg:mx-8 flex flex-col items-center justify-center border rounded-3xl border-slate-400 dark:border-slate-700 p-4">
               <!-- First Part -->
               <div class="w-full flex items-center justify-center space-x-4 mb-4">
-                <button class="text-yellow-400 transition duration-300 px-4 py-2 text-lg font-bold border-b-2 border-yellow-400">Assets</button>
-                <button class="hover:text-yellow-400 transition duration-300 px-4 py-2 text-lg font-bold">Transactions</button>
-                <button class="hover:text-yellow-400 transition duration-300 px-4 py-2 text-lg font-bold">Best Performing</button>
+                  <button id="assetsBtnTable" class="text-yellow-400 transition duration-300 px-4 py-2 text-lg font-bold border-b-2 border-yellow-400">Assets</button>
+                  <button class="hover:text-yellow-400 transition duration-300 px-4 py-2 text-lg font-bold">Transactions</button>
+                  <button class="hover:text-yellow-400 transition duration-300 px-4 py-2 text-lg font-bold">Best Performing</button>
               </div>
           
               <!-- Second Part -->
-              <div class="w-full overflow-x-auto border rounded-3xl border-slate-400 dark:border-slate-700 p-4">
-                <table class="min-w-full bg-gray-100 dark:bg-gray-800 rounded-lg">
-                  <thead>
-                    <tr>
-                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Coin</th>
-                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Balance</th>
-                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Average Costs</th>
-                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Today's PnL</th>
-                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Coin Price</th>
-                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Last 7 Days</th>
-                    </tr>
-                  </thead>
-                  <tbody id="cryptoTableBody" class="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-600">
-                    <!-- Rows will be inserted here by JavaScript -->
-                  </tbody>
-                </table>
+              <div id="AssetsTable" class="hidden w-full overflow-x-auto border rounded-3xl border-slate-400 dark:border-slate-700 p-4">
+                  <table class="min-w-full bg-gray-100 dark:bg-gray-800 rounded-lg">
+                      <thead>
+                          <tr>
+                              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Coin</th>
+                              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Balance</th>
+                              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Network</th>
+                              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Average Costs</th>
+                              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Today's PnL</th>
+                              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Coin Price</th>
+                              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Last 7 Days</th>
+                          </tr>
+                      </thead>
+                      <tbody id="cryptoTableBody" class="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-600">
+                      </tbody>
+                  </table>
               </div>
-            </div>
-            
+          </div>
            
 
 
