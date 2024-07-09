@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // Event listener for theme button
     document.getElementById("btnTheme").addEventListener("click",function (){
         document.documentElement.classList.toggle("dark")
-    })
+    });
     // Distribution Chart
     const distributionCtx = document.getElementById('distributionChart').getContext('2d');
     new Chart(distributionCtx, {
@@ -261,6 +262,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function populateTable() {
+        document.getElementById('BestPerformingTable').classList.add('hidden');
         const tableBody = document.getElementById('cryptoTableBody');
         const assetTable = document.getElementById('AssetsTable');
         assetTable.classList.remove('hidden');
@@ -269,9 +271,111 @@ document.addEventListener('DOMContentLoaded', function () {
             tableBody.innerHTML += generateTableRow(data);
         });
     }
+    // Fake data for best performing gainers
+    function generateBestPerformingRow(data, index) {
+      return `
+          <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-center">
+                  <div class="text-lg font-medium text-gray-900 dark:text-white">${index + 1}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap flex items-center">
+                  <img src="${data.logo}" alt="${data.name}" class="h-8 w-8 rounded-full mr-2">
+                  <div>
+                      <div class="text-lg font-medium text-gray-900 dark:text-white">${data.name}</div>
+                  </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-lg text-gray-900 dark:text-white">${data.price}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-lg text-gray-900 dark:text-white">${data.marketCap}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-lg text-green-500 dark:text-green-400">${data.PNL}</div>
+              </td>
+          </tr>
+      `;
+  }
+  
+  // Sample data
+  const bestPerformingData = [
+      {
+          name: 'Dock',
+          price: '$0.00910',
+          marketCap: '$30.97M',
+          logo: 'https://cdn.coinranking.com/8ofbvvVzu/dock.svg?size=30x30',
+          PNL: '+80.12%'  
+      },
+      {
+          name: 'jeo boden',
+          price: '$1.20',
+          marketCap: '$1.2B',
+          logo:'https://cdn.coinranking.com/i1XDesZZs/29687.png?size=60x60' ,
+          PNL:'+48.74%'
+      },
+      {
+          name: 'VisionGame',
+          price: '$2.00',
+          marketCap: '$2B',
+          logo: 'https://cdn.coinranking.com/fe_fASSvQ/OyT2pbVp_400x400.png?size=60x60',
+          PNL:'+46.78%'
+      },
+      {
+          name: 'MDX',
+          price: '$0.80',
+          marketCap: '$800M',
+          logo: 'https://cdn.coinranking.com/UNw-hMsBS/mdc.png?size=30x30',
+          PNL:'+33.60%'
+      },
+      {
+          name: 'Beer',
+          price: '$3.00',
+          marketCap: '$3B',
+          logo: 'https://cdn.coinranking.com/WnIQ8r11S/beer.png?size=30x30',
+          PNL:'+30.58%'
+      },
+      {
+          name: 'GHX',
+          price: '$0.70',
+          marketCap: '$700M',
+          logo: 'https://cdn.coinranking.com/O0uOnSKN0/6554.png?size=30x30',
+          PNL:'+22.09%'
+      },
+      {
+          name: 'Horizon',
+          price: '$1.50',
+          marketCap: '$1.5B',
+          logo: 'https://cdn.coinranking.com/r1dc3pGvX/zen.svg?size=30x30',
+          PNL:'+21.25%'
+      }
+  ];
+  
 
+    function populateTable2() {
+      document.getElementById('AssetsTable').classList.add('hidden');
+      const tableBody = document.getElementById('bestPerformingBody');
+      const bestPerformingTable = document.getElementById('BestPerformingTable');
+      bestPerformingTable.classList.remove('hidden');
+      tableBody.innerHTML = ''; // Clear the table body before populating
+      let index=0;
+      bestPerformingData.forEach(data => {
+          tableBody.innerHTML += generateBestPerformingRow(data,index);
+          index++;
+      });
+  }
+  const tabButtons = document.querySelectorAll('.tab-btn');
+      
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      tabButtons.forEach(btn => {
+        btn.classList.remove('text-yellow-400', 'border-yellow-400');
+        btn.classList.add('border-transparent');
+      });
+      this.classList.add('text-yellow-400', 'border-yellow-400');
+    });
+  });
     document.getElementById('assetsBtnTable').addEventListener('click', populateTable);
-
+    document.getElementById('BestPerformingBtnTable').addEventListener('click', populateTable2);
   });
   
 
