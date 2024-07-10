@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
     new Chart(distributionCtx, {
       type: 'doughnut',
       data: {
-        labels: ['Ethereum', 'Bitcoin', 'Litecoin', 'Other'],
+        labels: ['Ethereum', 'Bitcoin', 'XRP', 'Other'],
         datasets: [{
-          data: [39, 28, 21, 12],
-          backgroundColor: ['#627eea', '#f7931a', '#345d9d', '#2775ca'],
+          data: [10, 15, 20, 55],
+          backgroundColor: ['#627eea', '#f2931a', '#345d9d', '#2775fa'],
           borderWidth: 0,
         }]
       },
@@ -30,9 +30,9 @@ document.addEventListener('DOMContentLoaded', function () {
   
     // Top Assets
     const assets = [
-      { name: 'Ethereum', symbol: 'ETH', amount: '5', value: '$3,000', change: '+2.5%' },
-      { name: 'Bitcoin', symbol: 'BTC', amount: '0.5', value: '$4,000', change: '-1.2%' },
-      { name: 'Litecoin', symbol: 'LTC', amount: '10', value: '$1,000', change: '+3.1%' }
+      { name: 'Ethereum', symbol: 'ETH', amount: '10', value: '$2,000', change: '+50.5%' },
+      { name: 'Bitcoin', symbol: 'BTC', amount: '2', value: '$58,000', change: '-1.2%' },
+      { name: 'XRP', symbol: 'XRP', amount: '5OOO', value: '$0.50', change: '+0.1%' }
     ];
     const topAssetsContainer = document.getElementById('topAssets');
     assets.forEach(asset => {
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
             name: 'BNB',
             fullName: 'Binance Coin',
             balance: '20',
-            holdingNetwork: 'Binance Smart Chain',
+            holdingNetwork: 'BEP20',
             averageCost: '$300',
             todaysPnl: '2%',
             coinPrice: '$320',
@@ -206,24 +206,13 @@ document.addEventListener('DOMContentLoaded', function () {
             name: 'DOGE',
             fullName: 'Dogecoin',
             balance: '10000',
-            holdingNetwork: 'Dogecoin',
+            holdingNetwork: 'Ethereum',
             averageCost: '$0.1',
             todaysPnl: '5%',
             coinPrice: '$0.11',
             logo: 'https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=022',
             sparkline: 'https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/74.svg'
         },
-        {
-            name: 'DOT',
-            fullName: 'Polkadot',
-            balance: '1000',
-            holdingNetwork: 'Polkadot',
-            averageCost: '$15',
-            todaysPnl: '4%',
-            coinPrice: '$16',
-            logo: 'https://cryptologos.cc/logos/polkadot-new-dot-logo.png?v=022',
-            sparkline: 'https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/6636.svg'
-        }
     ];
     
 
@@ -253,8 +242,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="text-lg text-gray-500 dark:text-white">${data.coinPrice}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-lg text-gray-500 dark:text-white">
-                        <img src="${data.sparkline}" alt="${data.name}-7d-price-graph" class="h-auto w-auto mr-auto">
+                  <div class="text-lg text-gray-500 dark:text-white">
+                     <img src="${data.sparkline}" alt="${data.name}-7d-price-graph" class="h-auto w-auto mr-auto">
                     </div>
                 </td>
             </tr>
@@ -263,10 +252,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function populateTable() {
         document.getElementById('BestPerformingTable').classList.add('hidden');
+        document.getElementById('TransactionsBody').classList.add('hidden');
+
         const tableBody = document.getElementById('cryptoTableBody');
         const assetTable = document.getElementById('AssetsTable');
         assetTable.classList.remove('hidden');
-        tableBody.innerHTML = ''; // Clear the table body before populating
+        tableBody.innerHTML = ''; 
         cryptoData.forEach(data => {
             tableBody.innerHTML += generateTableRow(data);
         });
@@ -353,6 +344,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function populateTable2() {
       document.getElementById('AssetsTable').classList.add('hidden');
+      document.getElementById('TransactionsBody').classList.add('hidden');
+
       const tableBody = document.getElementById('bestPerformingBody');
       const bestPerformingTable = document.getElementById('BestPerformingTable');
       bestPerformingTable.classList.remove('hidden');
@@ -374,8 +367,99 @@ document.addEventListener('DOMContentLoaded', function () {
       this.classList.add('text-yellow-400', 'border-yellow-400');
     });
   });
+
+  
+  function generateTableRowTransactions(data) {
+    return `
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-left text-gray-900 dark:text-white">
+          <div>${data.Type}</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400">${data.Date}</div>
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap text-left text-gray-900 dark:text-white">
+          <div>${data.Amount}</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400" >${data.Token}</div>
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap text-left text-gray-900 dark:text-white">
+          ${data.Source}
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap text-left text-gray-900 dark:text-white">
+          ${data.Destination}
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap text-left text-gray-900 dark:text-white">
+          ${data.Fees}
+        </td>
+      </tr>
+    `;
+  }
+// Sample output format:
+const transactionsTableData = [
+  {
+    Type: 'Buy',
+    Amount: '1000.00',
+    Token: 'USDT',
+    Source: '1A2b3__8r9S',
+    Destination: '1B2__8s9T',
+    Fees: '$2.00',
+    Date: '2024-07-10 14:23'
+  },
+  {
+    Type: 'Sell',
+    Amount: '0.3',
+    Token: 'ETH',
+    Source: '1C2d3E4__S8t9U',
+    Destination: '1D2e3__T8u9V',
+    Fees: '$12.50',
+    Date: '2024-07-10 14:25'
+  },
+  {
+    Type: 'Transfer',
+    Amount: '538.12',
+    Token: 'XRP',
+    Source: '1E2f3G__U8v9W',
+    Destination: '1F2g3H4i5__V8w9X',
+    Fees: '$0.02',
+    Date: '2024-07-10 14:27'
+  },
+  {
+    Type: 'Buy',
+    Amount: '55.00',
+    Token: 'SOL',
+    Source: '1G2h3I4j__7W8x9Y',
+    Destination: '1H2i3J4__X8y9Z',
+    Fees: '$0.2',
+    Date: '2024-07-10 14:29'
+  },
+  {
+    Type: 'Sell',
+    Amount: '1.00',
+    Token: 'BNB',
+    Source: '1I2j3K4__x7Y8z9A',
+    Destination: '1J2k3__7Z8a9B',
+    Fees: '$3.00',
+    Date: '2024-07-10 14:31'
+  }
+];
+function populateTable3() {
+  document.getElementById('BestPerformingTable').classList.add('hidden');
+  document.getElementById('AssetsTable').classList.add('hidden');
+  const TransactionsBody = document.getElementById('TransactionsBody');
+  const TransactionsTable = document.getElementById('TransactionsTable');
+
+  TransactionsBody.classList.remove('hidden');
+  TransactionsTable.innerHTML = ''; 
+  transactionsTableData.forEach(data => {
+    TransactionsTable.innerHTML += generateTableRowTransactions(data);
+  }); 
+}
+
+
     document.getElementById('assetsBtnTable').addEventListener('click', populateTable);
     document.getElementById('BestPerformingBtnTable').addEventListener('click', populateTable2);
+    document.getElementById('TransactionsBtn').addEventListener('click', populateTable3);
+
   });
   
+
+
 
