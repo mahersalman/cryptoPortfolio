@@ -1,25 +1,39 @@
 // src/components/NavBar.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Wallet from './Wallet'; // Ensure the correct import path
 
-const NavBar = ({ onConnect }) => {
+function NavBar({ onAddressChange }) {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
+
   return (
-    <div className="bg-white shadow-md p-4 flex justify-between items-center">
-      <div className="text-xl font-bold">CryptoTrack</div>
+    <div className={`shadow-md p-4 flex justify-between items-center ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+      <div className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-black'}`}>CryptoTrack</div>
       <div className="flex items-center space-x-4">
-        <a href="#dashboard" className="text-gray-700 hover:text-black">Dashboard</a>
-        <a href="#markets" className="text-gray-700 hover:text-black">Markets</a>
+        <a href="#dashboard" className={`hover:text-black ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-700'}`}>Dashboard</a>
+        <a href="#markets" className={`hover:text-black ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-700'}`}>Markets</a>
+        <Wallet isDarkMode={isDarkMode} onAddressChange={onAddressChange} />
         <button 
-          onClick={onConnect} 
-          className="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600">
-          Connect Wallet
-        </button>
-        <button className="bg-transparent border border-yellow-500 text-yellow-500 py-2 px-4 rounded hover:bg-yellow-500 hover:text-white">
-          {/* Add your icon here, for example a sun icon for light/dark mode toggle */}
-          <span role="img" aria-label="sun">☀️</span>
+          onClick={toggleDarkMode} 
+          className={`py-2 px-4 rounded border ${isDarkMode ? 'border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-gray-800' : 'border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-white'}`}>
+          <span role="img" aria-label="sun">
+            {isDarkMode ? '🌙' : '☀️'}
+          </span>
         </button>
       </div>
     </div>
   );
-};
+}
 
 export default NavBar;

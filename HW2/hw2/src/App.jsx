@@ -1,25 +1,22 @@
 // src/App.jsx
 import React, { useState } from 'react';
 import NavBar from './components/NavBar';
-import { connectWallet } from './utils/metamask';
 
 function App() {
-  const [account, setAccount] = useState(null);
+  const [walletAddress, setWalletAddress] = useState("");
 
-  const handleConnectWallet = async () => {
-    const signer = await connectWallet();
-    if (signer) {
-      const address = await signer.getAddress();
-      setAccount(address);
-    }
+  const handleAddressChange = (address) => {
+    setWalletAddress(address);
   };
 
   return (
     <div>
-      <NavBar onConnect={handleConnectWallet} />
-      <div className="p-4">
-        {account ? <p>Connected Account: {account}</p> : <p>Please connect your wallet.</p>}
-      </div>
+      <NavBar onAddressChange={handleAddressChange} />
+      {walletAddress && (
+        <div className="text-xl">
+          <strong>Connected Account:</strong> {walletAddress}
+        </div>
+      )}
     </div>
   );
 }
