@@ -4,14 +4,17 @@ import NavBar from './components/NavBar';
 import PortfolioDistribution from './components/PortfolioDistribution';
 import MyWalletAddress from './components/MyWalletAddress';
 import { ethers } from 'ethers';
+import GetAssets from './components/GetAssets';
+import FetchTransactions from './components/FetchTransactions';
+
 function App() {
   // Wallet Address
-  const [walletAddress, setWalletAddress] = useState("0x742d35Cc6634C0532925a3b844Bc454e4438f44e");
+  const [walletAddress, setWalletAddress] = useState("");
   const handleAddressChange = (address) => {
     setWalletAddress(address);
   };
 
-  const address = "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"; // A known Ethereum address with a balance
+  const address = "0x1760cf6ED927240260bdecA4BEc8b6924a228858"; // A known Ethereum address with a balance
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
  
@@ -23,6 +26,7 @@ function App() {
         <GetBalance address={address} provider={provider} />
         <PortfolioDistribution/>
         </div>
+        <FetchTransactions address={address}/>
       </div>
   );
 }
