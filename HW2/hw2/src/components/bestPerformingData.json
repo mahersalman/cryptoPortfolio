@@ -1,0 +1,102 @@
+[
+    {
+        "name": "Dock",
+        "price": "$0.00910",
+        "marketCap": "$30.97M",
+        "logo": "https://cdn.coinranking.com/8ofbvvVzu/dock.svg?size=30x30",
+        "PNL_24h": "+12.12%",
+        "PNL_week": "+120.15%",
+        "PNL_month": "+150.45%",
+        "PNL_year": "+250.78%"
+    },
+    {
+        "name": "jeo boden",
+        "price": "$1.20",
+        "marketCap": "$1.2B",
+        "logo": "https://cdn.coinranking.com/i1XDesZZs/29687.png?size=60x60",
+        "PNL_24h": "+48.74%",
+        "PNL_week": "+60.23%",
+        "PNL_month": "+90.56%",
+        "PNL_year": "+180.89%"
+    },
+    {
+        "name": "VisionGame",
+        "price": "$2.00",
+        "marketCap": "$2B",
+        "logo": "https://cdn.coinranking.com/fe_fASSvQ/OyT2pbVp_400x400.png?size=60x60",
+        "PNL_24h": "+46.78%",
+        "PNL_week": "+55.34%",
+        "PNL_month": "+85.67%",
+        "PNL_year": "+160.22%"
+    },
+    {
+        "name": "MDX",
+        "price": "$0.80",
+        "marketCap": "$800M",
+        "logo": "https://cdn.coinranking.com/UNw-hMsBS/mdc.png?size=30x30",
+        "PNL_24h": "+33.60%",
+        "PNL_week": "+40.25%",
+        "PNL_month": "+65.89%",
+        "PNL_year": "+120.47%"
+    },
+    {
+        "name": "Beer",
+        "price": "$3.00",
+        "marketCap": "$3B",
+        "logo": "https://cdn.coinranking.com/WnIQ8r11S/beer.png?size=30x30",
+        "PNL_24h": "+30.58%",
+        "PNL_week": "+38.22%",
+        "PNL_month": "+60.45%",
+        "PNL_year": "+110.34%"
+    },
+    {
+        "name": "GHX",
+        "price": "$0.70",
+        "marketCap": "$700M",
+        "logo": "https://cdn.coinranking.com/O0uOnSKN0/6554.png?size=30x30",
+        "PNL_24h": "+22.09%",
+        "PNL_week": "+28.44%",
+        "PNL_month": "+45.67%",
+        "PNL_year": "+85.34%"
+    },
+    {
+        "name": "Horizon",
+        "price": "$1.50",
+        "marketCap": "$1.5B",
+        "logo": "https://cdn.coinranking.com/r1dc3pGvX/zen.svg?size=30x30",
+        "PNL_24h": "+21.25%",
+        "PNL_week": "+26.78%",
+        "PNL_month": "+40.89%",
+        "PNL_year": "+75.23%"
+    },
+    {
+        "name": "Bitcoin",
+        "price": "$30,000",
+        "marketCap": "$600B",
+        "logo": "https://cdn.coinranking.com/bOabBYkcX/bitcoin_btc.svg?size=30x30",
+        "PNL_24h": "+1.25%",
+        "PNL_week": "+2.5%",
+        "PNL_month": "+5.0%",
+        "PNL_year": "+10.0%"
+    },
+    {
+        "name": "Ethereum",
+        "price": "$2,000",
+        "marketCap": "$240B",
+        "logo": "https://cdn.coinranking.com/rk4RKHOuW/eth.svg?size=30x30",
+        "PNL_24h": "+2.15%",
+        "PNL_week": "+3.25%",
+        "PNL_month": "+6.75%",
+        "PNL_year": "+12.5%"
+    },
+    {
+        "name": "Cardano",
+        "price": "$1.20",
+        "marketCap": "$40B",
+        "logo": "https://cdn.coinranking.com/ryY28nXhW/ada.svg?size=30x30",
+        "PNL_24h": "+3.20%",
+        "PNL_week": "+4.10%",
+        "PNL_month": "+7.50%",
+        "PNL_year": "+15.0%"
+    }
+]
