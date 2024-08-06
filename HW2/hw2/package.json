@@ -10,10 +10,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.51.21",
+    "@web3modal/wagmi": "^5.0.11",
     "axios": "^1.7.2",
+    "chart.js": "^4.4.3",
+    "chartjs-plugin-datalabels": "^2.2.0",
+    "cryptocurrency-icons": "^0.18.1",
     "ethers": "^5.5.4",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.0",
+    "react-tippy": "^1.4.0",
+    "viem": "^2.18.8",
+    "wagmi": "^2.12.4"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",

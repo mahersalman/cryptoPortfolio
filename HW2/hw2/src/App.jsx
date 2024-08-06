@@ -1,77 +1,70 @@
 import React, { useState, useEffect } from 'react';
-import GetBalance from './components/GetBalance';
-import NavBar from './components/NavBar';
-import PortfolioDistribution from './components/PortfolioDistribution';
-import MyWalletAddress from './components/MyWalletAddress';
-import { ethers } from 'ethers';
-import TabButtons from './components/MarketNavbar';
-import BestPerformingTable from './components/BestPerformingTable';
-import { ThemeProvider } from './components/ThemeContext';
-import AssetsTable from './components/assestsTable';
-import TransactionTable from './components/TransactionTable';
+import { createWeb3Modal } from '@web3modal/wagmi/react'
+import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
+import { WagmiProvider } from 'wagmi'
+import { arbitrum, mainnet } from 'wagmi/chains'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom';
+
+
+//      WalletConnect Confirguration
+// 0. Setup queryClient
+const queryClient = new QueryClient()
+// 1. Get projectId from https://cloud.walletconnect.com
+const projectId = '3bc485fc6392a8539e456890061ed1c9'
+// 2. Create wagmiConfig
+const metadata = {
+  name: 'AppKit',
+  description: 'AppKit Example',
+  url: 'http://localhost:1743',
+  icons: ['https://avatars.githubusercontent.com/u/37784886']
+}
+const chains = [mainnet, arbitrum];
+const config = defaultWagmiConfig({
+  chains,
+  projectId,
+  metadata,
+})
+// 3. Create modal
+createWeb3Modal({
+  metadata,
+  wagmiConfig: config,
+  projectId,
+  enableAnalytics: true // Optional - defaults to your Cloud configuration
+})
+export function AppKitProvider({ children }) {
+  return (
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </WagmiProvider>
+  )
+}
+//      End - WalletConnect Confirguration
+
+
 
 function App() {
-  const [walletAddress, setWalletAddress] = useState("0x974caa59e49682cda0ad2bbe82983419a2ecc400");
-  const [activeTab, setActiveTab] = useState(null);
-  const [addressToken, setAddressToken] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const ethploroerAPIKey = 'EK-nY7ou-saWnY7s-ooUEm';
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const navigate = useNavigate();
 
-  const handleAddressChange = (address) => {
-    setWalletAddress(address);
+  const handleClick = () => {
+    navigate('/WalletPage');
   };
 
-
-  const address = '0x974caa59e49682cda0ad2bbe82983419a2ecc400'; // Replace with the actual Ethereum address
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`https://api.ethplorer.io/getAddressInfo/${address}?apiKey=${ethploroerAPIKey}`);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const json = await response.json();
-        setAddressToken(json);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (address) {
-      fetchData();
-    }
-  }, [address]);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
   return (
-      <div>
-          <div className='w-full flex items-center justify-center mt-10 mb-10 text-5xl'>Prototype</div>
-          <NavBar onAddressChange={handleAddressChange} />
-          <MyWalletAddress walletAddress={walletAddress} />
+  <div className="bg-home-page bg-cover bg-center h-screen w-screen flex flex-col items-center justify-center">
+    <div className="text-center mb-4">
+      <h1 className="text-yellow-500 text-4xl font-bold">Welcome</h1>
+    </div>
+    <div><w3m-button className="bg-center" /></div>
+    <button 
+        onClick={handleClick} 
+        className="bg-yellow-500 flex text-white w-12 h-12 rounded-md hover:bg-yellow-600 focus:ring-yellow-400"
+      >
+        Try Demo
+      </button>
+  </div>
+  );
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
-            <GetBalance address={walletAddress} provider={provider} />
-            <PortfolioDistribution/>
-          </div>
-          <ThemeProvider>
-            <div>
-              <TabButtons setActiveTab={setActiveTab} />
-              {activeTab === 'assets' && <AssetsTable tokens = {addressToken}/>}
-              {activeTab === 'transactions' && <TransactionTable/>}
-              {activeTab === 'BestPerforming' && <BestPerformingTable />}
-            </div>
-          </ThemeProvider> 
-         </div>
-
-
-    );
   };
 
 export default App;

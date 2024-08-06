@@ -25,7 +25,7 @@ function Wallet({ isDarkMode, onAddressChange }) {
     <button 
       onClick={requestAccount}
       className={`py-2 px-4 rounded ${isDarkMode ? 'bg-yellow-500 text-gray-800' : 'bg-yellow-500 text-white'} hover:bg-yellow-600`}>
-      Connect Wallet
+      Disconnect
     </button>
   );
 }

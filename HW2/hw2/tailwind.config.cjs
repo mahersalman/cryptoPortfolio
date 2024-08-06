@@ -1,7 +1,11 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'home-page': "url('/HomePage.jpg')", // Update the path to your image
+      },
+    },
   },
   plugins: [
     require("@tailwindcss/typography"),
