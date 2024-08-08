@@ -6,10 +6,8 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 // Register the required components and plugins
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
-function TotalBalanceChart({ data }) {
+function TotalBalanceChart({ tokens }) {
   // Process and filter token data
-  const tokens = data.tokens || [];
-  
   // Filter out fake tokens (where tokenInfo.price is false)
   const validTokens = tokens.filter(token => token.tokenInfo.price);
 
@@ -92,7 +90,7 @@ function TotalBalanceChart({ data }) {
   return (
     <div className="glassmorphism p-6 border rounded-3xl border-slate-400 dark:border-slate-700 flex">
       <div className="w-full">
-        <h2 className="text-xl font-semibold mb-4">Portfolio Top Balances Distribution</h2>
+        <h2 className="text-xl font-semibold mb-4 text-center">Portfolio Distribution</h2>
         <div className="w-full h-64">
           <div className="h-64">
             <Doughnut data={chartData} options={options} />

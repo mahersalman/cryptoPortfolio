@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Tooltip } from 'react-tippy';
 import 'react-tippy/dist/tippy.css';
+import { getUrlString } from './utils'; 
 
-const TransactionTable = ({address}) => {
+const TransactionTable = ({wallet}) => {
   const [transactions, setTransactions] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const ethplorerAPIKey = 'EK-nY7ou-saWnY7s-ooUEm';
-  const baseImageUrl = '/node_modules/cryptocurrency-icons/svg/color/'; // Base URL for token images
+  const baseImageUrl = '/node_modules/cryptocurrency-icons/svg/color/'; 
 
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await fetch(`https://api.ethplorer.io/getAddressHistory/${address}?apiKey=${ethplorerAPIKey}&type=transfer`);
+        const url = getUrlString(wallet.Network,'getAddressHistory', wallet.Address);
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -26,7 +27,7 @@ const TransactionTable = ({address}) => {
     };
 
     fetchTransactions();
-  }, [address, ethplorerAPIKey]);
+  }, [wallet.Address, wallet.Network]);
 
   const formatDate = (timestamp) => {
     const date = new Date(timestamp * 1000);
@@ -78,7 +79,6 @@ const TransactionTable = ({address}) => {
         </td>
         <td className="px-6 py-4 text-center whitespace-nowrap">
           <div className="flex items-center justify-center">
-            <img src={tokenImage} alt={item.tokenInfo.name} width="24" height="24" className="mr-2" onError={(e) => { e.target.onerror = null; e.target.src='/path/to/generic.svg' }} />
             <div className="text-lg text-gray-900 dark:text-white">{item.tokenInfo.name}</div>
           </div>
         </td>
