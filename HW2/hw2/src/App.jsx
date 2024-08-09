@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from './components/NavBar';
 import { AppKitProvider } from './AppKitProvider';
-import DataTables from './components/dataTables';
+import WalletData from './components/WalletData';
 
 function App() {
 
@@ -27,7 +27,7 @@ function App() {
            
           {wallet.isConnected ? (
               <div>
-                <DataTables wallet={wallet} />
+                <WalletData wallet={wallet} />
               </div>
               ) : (
                 <div className="text-center text-7xl">               

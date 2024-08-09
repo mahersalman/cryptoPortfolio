@@ -6,7 +6,8 @@ import { ThemeProvider } from './ThemeContext';
 import TabButtons from './MarketNavbar';
 import { getUrlString } from './utils'; 
 import BestPerformingTable from './BestPerformingTable';
-function DataTables({wallet}) {
+
+function WalletData({wallet}) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [Tokens, setTokens] = useState(null);
@@ -73,4 +74,5 @@ function DataTables({wallet}) {
         );
     };
 
-export default DataTables;
+export default WalletData;
+

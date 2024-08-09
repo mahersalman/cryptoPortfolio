@@ -88,7 +88,7 @@ function TotalBalanceChart({ tokens }) {
   };
 
   return (
-    <div className="glassmorphism p-6 border rounded-3xl border-slate-400 dark:border-slate-700 flex">
+    <div className="glassmorphism p-6 rounded-3xl border-slate-400 dark:border-slate-700 flex bg-slate-400">
       <div className="w-full">
         <h2 className="text-xl font-semibold mb-4 text-center">Portfolio Distribution</h2>
         <div className="w-full h-64">
