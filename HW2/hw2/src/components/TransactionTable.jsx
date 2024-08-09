@@ -18,6 +18,7 @@ const TransactionTable = ({wallet}) => {
           throw new Error('Network response was not ok');
         }
         const json = await response.json();
+
         setTransactions(json.operations);
       } catch (error) {
         setError(error);
@@ -44,8 +45,9 @@ const TransactionTable = ({wallet}) => {
     const tokenValue = (item.value / Math.pow(10, tokenDecimals)).toFixed(2);
     const tokenSymbol = item.tokenInfo.symbol.toLowerCase();
     const tokenImage = `${baseImageUrl}${tokenSymbol}.svg`;
-
+  
     return (
+      
       <tr key={index}>
         <td className="px-6 py-4 text-center whitespace-nowrap">
           <div className="text-lg text-gray-900 dark:text-white">{formatDate(item.timestamp)}</div>
@@ -53,21 +55,21 @@ const TransactionTable = ({wallet}) => {
         <td className="px-6 py-4 text-center whitespace-nowrap">
           <Tooltip title={item.transactionHash} position="top" trigger="click" arrow={true}>
             <div className="text-lg text-gray-900 dark:text-white cursor-pointer">
-              {item.transactionHash.substring(0, 5)}...
+              {item.transactionHash ? `${item.transactionHash.substring(0, 5)}...` : 'N/A'}
             </div>
           </Tooltip>
         </td>
         <td className="px-6 py-4 text-center whitespace-nowrap">
           <Tooltip title={item.from} position="top" trigger="click" arrow={true}>
             <div className="text-lg text-gray-900 dark:text-white cursor-pointer">
-            {item.to.substring(0, 6)}...{item.to.slice(-4)}
+              {item.from ? `${item.from.substring(0, 6)}...${item.from.slice(-4)}` : 'N/A'}
             </div>
           </Tooltip>
         </td>
         <td className="px-6 py-4 text-center whitespace-nowrap">
           <Tooltip title={item.to} position="top" trigger="click" arrow={true}>
             <div className="text-lg text-gray-900 dark:text-white cursor-pointer">
-            {item.to.substring(0, 6)}...{item.to.slice(-4)}
+              {item.to ? `${item.to.substring(0, 6)}...${item.to.slice(-4)}` : 'N/A'}
             </div>
           </Tooltip>
         </td>
@@ -85,12 +87,12 @@ const TransactionTable = ({wallet}) => {
       </tr>
     );
   };
-
+  
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div id="TransactionTable" className="w-full overflow-x-auto border rounded-3xl border-slate-400 dark:border-slate-700 p-4">
+    <div id="TransactionTable" className="w-full overflow-x-auto rounded-3xl border-slate-400 dark:border-slate-700 p-4">
       <table className="min-w-full bg-gray-100 dark:bg-gray-800 rounded-lg">
         <thead>
           <tr>
@@ -98,7 +100,7 @@ const TransactionTable = ({wallet}) => {
             <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Tx Hash</th>
             <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">From</th>
             <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">To</th>
-            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Value</th>
+            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Amount</th>
             <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Type</th>
             <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Token</th>
           </tr>

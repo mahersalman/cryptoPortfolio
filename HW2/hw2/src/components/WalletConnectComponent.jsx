@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAccount } from 'wagmi';
 
 export function WalletConnectComponent({ handleConnect }) {
-  const account = useAccount();
+  const { isConnected, address, chain } = useAccount();
 
   useEffect(() => {
-    if (account.isConnected) {
-      handleConnect(account.address, account.chain.name, account.isConnected);
+    if (isConnected && address && chain) {
+      handleConnect(address, chain.name, isConnected);
     }
-  }, [account.address, account.chain.name]); 
-
+  }, [isConnected, address, chain]); 
 
   return (
     <div className="flex gap-5">

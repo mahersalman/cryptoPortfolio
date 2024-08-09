@@ -24,7 +24,7 @@ function App() {
     <div>
         <AppKitProvider>    
           <NavBar handleConnect={handleConnect} />
-          
+           
           {wallet.isConnected ? (
               <div>
                 <DataTables wallet={wallet} />

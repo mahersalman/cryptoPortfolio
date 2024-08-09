@@ -21,21 +21,22 @@ function DataTables({wallet}) {
               throw new Error('Network response was not ok');
             }
             const json = await response.json();
-            // Add ETH data to tokens array
-            const ethToken = {
+            const chainToken = {
               tokenInfo: {
                 address: wallet.Address,
-                name: 'Ethereum',
-                symbol: 'ETH',
-                decimals: 18,
+                name: wallet.Network === 'Ethereum' ? 'Ethereum' : wallet.Network === 'BNB Smart Chain' ? 'BNB' : 'Unknown',
+                symbol: wallet.Network === 'Ethereum' ? 'Ethereum' : wallet.Network === 'BNB Smart Chain' ? 'BNB' : 'Unknown',
+                decimals: 0,
                 price: json.ETH.price
               },
               balance: json.ETH.balance,
               rawBalance: json.ETH.rawBalance
             };
-            const filteredTokens = [ethToken, ...json.tokens.filter(token => token.tokenInfo.price !== false)];
+            const filteredTokens = [
+              chainToken, 
+              ...(json.tokens ? json.tokens.filter(token => token.tokenInfo.price !== false) : [])
+            ];
             setTokens(filteredTokens);
-            console.log(filteredTokens)
           } catch (error) {
             setError(error);
           } finally {

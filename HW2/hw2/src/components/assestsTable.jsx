@@ -9,7 +9,7 @@ const AssetsTable = ({ tokens }) => {
   };
 
   return (
-    <div id="AssetsTable" className="w-full overflow-x-auto border rounded-3xl border-slate-400 dark:border-slate-700 p-4">
+    <div id="AssetsTable" className="w-full overflow-x-auto rounded-3xl border-slate-400 dark:border-slate-700 p-4">
       <table className="min-w-full bg-gray-100 dark:bg-gray-800 rounded-lg">
         <thead>
           <tr>
@@ -25,7 +25,7 @@ const AssetsTable = ({ tokens }) => {
           {tokens && tokens.map((token, index) => {
               const decimals = parseInt(token.tokenInfo.decimals);
               const price = token.tokenInfo.price.rate.toFixed(4);
-              const balance = (parseFloat(token.balance) / Math.pow(10, decimals)).toFixed(decimals > 5 ? 5 : decimals);
+              const balance = (parseFloat(token.balance) / Math.pow(10, decimals)).toFixed(5);
               const priceChange = token.tokenInfo.price.diff.toFixed(2); // 24h Change
               const avgBuy = token.tokenInfo.price.bid ? token.tokenInfo.price.bid.toFixed(4) : '0'; // Avg Buy Price
               const total = (parseFloat(price) * parseFloat(balance)).toFixed(2); // Total value in USD
