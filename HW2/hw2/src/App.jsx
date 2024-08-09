@@ -2,42 +2,59 @@ import React, { useState, useEffect } from 'react';
 import NavBar from './components/NavBar';
 import { AppKitProvider } from './AppKitProvider';
 import WalletData from './components/WalletData';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Banner from "./components/Banner";
+
 
 function App() {
-
   const [wallet, setWallet] = useState({
     Address: '',
     Network: '',
     isConnected: false
   });
 
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
   const handleConnect = (address, network, isConnected) => {
     setWallet({
-        Address: address,
-        Network: network,
-        isConnected: isConnected
+      Address: address,
+      Network: network,
+      isConnected: isConnected,
     });
-};
+  };
 
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
 
   return (
-    <div>
-        <AppKitProvider>    
-          <NavBar handleConnect={handleConnect} />
-           
-          {wallet.isConnected ? (
-              <div>
+    <AppKitProvider>
+      <BrowserRouter>
+        <div className={`${isDarkMode ? 'dark' : ''}`}>
+          <NavBar handleConnect={handleConnect} isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+          <Routes>
+            <Route
+              path="/"
+              element={wallet.isConnected ? (
                 <WalletData wallet={wallet} />
-              </div>
               ) : (
-                <div className="text-center text-7xl">               
-                   <p>Please Connect ...</p>
-                </div>
-              )
-          }
-        </AppKitProvider>
-    </div>
-    );
-  };
+                <Banner />
+              )}
+            />
+            <Route path="/wallet" element={<WalletData wallet={wallet} />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </AppKitProvider>
+  );
+}
 
 export default App;

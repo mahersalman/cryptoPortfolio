@@ -17,7 +17,7 @@ function NavBar({handleConnect}) {
   }, [isDarkMode]);
   return (
     <div className={`shadow-md p-4 flex justify-between items-center ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
-      <div className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-black'}`}>CryptoTrack</div>
+      <div className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-black'}`}>The Ultimate</div>
       <div className="flex items-center space-x-4">
         <WalletConnectComponent handleConnect={handleConnect}/>
 
