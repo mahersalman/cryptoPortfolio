@@ -32,9 +32,6 @@ function Banner({ isDarkMode }) {
           </h3>
         </div>
 
-        <div>
-          <WalletConnectComponent />
-        </div>
       </div>
     </div>
   );
