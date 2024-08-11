@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Tooltip } from 'react-tippy';
 import 'react-tippy/dist/tippy.css';
 import { getUrlString } from './utils'; 
+import { ThemeContext } from './ThemeContext'; // Import ThemeContext
 
 const TransactionTable = ({wallet}) => {
+  const { theme } = useContext(ThemeContext); // Access the theme using useContext
   const [transactions, setTransactions] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -47,7 +49,6 @@ const TransactionTable = ({wallet}) => {
     const tokenImage = `${baseImageUrl}${tokenSymbol}.svg`;
   
     return (
-      
       <tr key={index}>
         <td className="px-6 py-4 text-center whitespace-nowrap">
           <div className="text-lg text-gray-900 dark:text-white">{formatDate(item.timestamp)}</div>
@@ -92,20 +93,20 @@ const TransactionTable = ({wallet}) => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div id="TransactionTable" className="w-full overflow-x-auto rounded-3xl border-slate-400 dark:border-slate-700 p-4">
-      <table className="min-w-full bg-gray-100 dark:bg-gray-800 rounded-lg">
-        <thead>
+    <div id="TransactionTable" className={`w-full overflow-x-auto rounded-3xl border-slate-400 p-4 ${theme === 'dark' ? 'dark:border-slate-700' : ''}`}>
+      <table className={`min-w-full rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}>
+        <thead className={`${theme === 'dark' ? 'bg-gray-900 text-gray-50' : 'bg-gray-50 text-gray-800'}`}>
           <tr>
-            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Date & Time</th>
-            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Tx Hash</th>
-            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">From</th>
-            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">To</th>
-            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Amount</th>
-            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Type</th>
-            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Token</th>
+            <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Date & Time</th>
+            <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Tx Hash</th>
+            <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">From</th>
+            <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">To</th>
+            <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Amount</th>
+            <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Type</th>
+            <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Token</th>
           </tr>
         </thead>
-        <tbody id="cryptoTableBody" className="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-600">
+        <tbody id="cryptoTableBody" className={`${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'} divide-y divide-gray-200 dark:divide-gray-600`}>
           {transactions && transactions.map((transaction, index) => generateTableRow(transaction, index))}
         </tbody>
       </table>

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ThemeContext } from './ThemeContext'; // Import ThemeContext
 
 const AssetsTable = ({ tokens }) => {
+  const { theme } = useContext(ThemeContext); // Access the theme using useContext
   const baseImageUrl = '/node_modules/cryptocurrency-icons/svg/color/'; // Base URL for token images
 
   const handleImageError = (e) => {
@@ -9,19 +11,19 @@ const AssetsTable = ({ tokens }) => {
   };
 
   return (
-    <div id="AssetsTable" className="w-full overflow-x-auto rounded-3xl border-slate-400 dark:border-slate-700 p-4">
-      <table className="min-w-full bg-gray-100 dark:bg-gray-800 rounded-lg">
-        <thead>
+    <div id="AssetsTable" className={`w-full overflow-x-auto rounded-3xl border-slate-400 p-4 ${theme === 'dark' ? 'dark:border-slate-700' : ''}`}>
+      <table className={`min-w-full rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}>
+        <thead className={`${theme === 'dark' ? 'bg-gray-900 text-gray-50' : 'bg-gray-50 text-gray-800'}`}>
           <tr>
-            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Token Name</th>
-            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Amount</th>
-            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">24h Change (%)</th>
-            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Price (USD)</th>
-            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Avg Buy (USD)</th>
-            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total (USD)</th>
+            <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Token Name</th> 
+            <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Amount</th>
+            <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">24h Change (%)</th>
+            <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Price (USD)</th>
+            <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Avg Buy (USD)</th>
+            <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Total (USD)</th>
           </tr>
         </thead>
-        <tbody id="cryptoTableBody" className="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-600">
+        <tbody className={`${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'} divide-y divide-gray-200 dark:divide-gray-600`}>
           {tokens && tokens.map((token, index) => {
               const decimals = parseInt(token.tokenInfo.decimals);
               const price = token.tokenInfo.price.rate.toFixed(4);
@@ -35,12 +37,10 @@ const AssetsTable = ({ tokens }) => {
               return (
                 <tr key={index}>
                   <td className="px-6 py-4 text-center whitespace-nowrap">
-                    <div className="flex gap-3 text-lg text-gray-900 dark:text-white">
+                    <div className="flex gap-3 text-lg">
                       <img src={tokenImage} alt={token.tokenInfo.name} width="24" height="24" onError={handleImageError} />
                       <div className="flex flex-col items-center">
-                        <div className="text-lg text-gray-900 dark:text-white">
-                          {token.tokenInfo.symbol}
-                        </div>
+                        <div>{token.tokenInfo.symbol}</div>
                         <div className="text-sm text-gray-500 dark:text-gray-400">
                           {token.tokenInfo.name}
                         </div>
@@ -48,19 +48,19 @@ const AssetsTable = ({ tokens }) => {
                     </div>
                   </td>
                   <td className="px-6 py-4 text-center whitespace-nowrap">
-                    <div className="text-lg text-gray-900 dark:text-white">{balance}</div>
+                    <div>{balance}</div>
                   </td>
                   <td className="px-6 py-4 text-center whitespace-nowrap">
-                    <div className="text-lg text-gray-900 dark:text-white">{priceChange}%</div>
+                    <div className={`${priceChange >= 0 ? 'text-green-500' : 'text-red-500'}`}>{priceChange}%</div>
                   </td>
                   <td className="px-6 py-4 text-center whitespace-nowrap">
-                    <div className="text-lg text-gray-900 dark:text-white">{price}$</div>
+                    <div>{price}$</div>
                   </td>
                   <td className="px-6 py-4 text-center whitespace-nowrap">
-                    <div className="text-lg text-gray-900 dark:text-white">{avgBuy}$</div>
+                    <div>{avgBuy}$</div>
                   </td>
                   <td className="px-6 py-4 text-center whitespace-nowrap">
-                    <div className="text-lg text-gray-900 dark:text-white">{total}$</div>
+                    <div>{total}$</div>
                   </td>
                 </tr>
               );

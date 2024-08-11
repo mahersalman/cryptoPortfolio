@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { ThemeContext } from './ThemeContext'; // Import ThemeContext
 
 const BestPerformingTable = ({ tokens }) => {
+    const { theme } = useContext(ThemeContext); // Access the theme using useContext
     const [selectedFilter, setSelectedFilter] = useState('PNL_24h');
 
     const handleFilterChange = (event) => {
@@ -32,44 +34,43 @@ const BestPerformingTable = ({ tokens }) => {
 
     return (
         <>
-        <div className="flex items-center justify-center gap-4 max-w-lg mx-auto rounded-3xl bg-slate-600 border-slate-900 p-1">
-            <div className="text-lg font-medium text-gray-900 dark:text-gray-100">Choose Criteria</div>
+        <div className="flex items-center justify-center gap-4 max-w-lg mx-auto rounded-3xl border-slate-900 p-1" style={{ backgroundColor: theme === 'dark' ? '#4B5563' : '#E5E7EB' }}>
+            <div className={`text-lg font-medium ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>Choose Criteria</div>
             <select
                 value={selectedFilter}
                 onChange={handleFilterChange}
-                className="w-28 border rounded-full bg-gray-800 text-white dark:bg-gray-700 dark:text-white py-2 px-4">
+                className={`w-28 border rounded-full py-2 px-4 ${theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-gray-300 text-gray-900'}`}>
                 <option value="PNL_24h">24h PNL</option>
                 <option value="PNL_week">7d PNL</option>
                 <option value="PNL_month">30d PNL</option>
             </select>
         </div>
 
-
-        <div className="w-full overflow-x-auto border rounded-3xl border-slate-400">
-            <table className="min-w-full divide-gray-200">
-                <thead className="bg-gray-50 dark:bg-gray-800">
+        <div className={`w-full overflow-x-auto rounded-3xl border-slate-400 p-4 ${theme === 'dark' ? 'dark:border-slate-700' : ''}`}>
+            <table className={`min-w-full rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}>
+                <thead className={`${theme === 'dark' ? 'bg-gray-900 text-gray-50' : 'bg-gray-50 text-gray-800'}`}>
                     <tr>
-                        <th className="px-6 py-3 text-center text-2xl font-medium text-gray-500 dark:text-gray-400"></th>
-                        <th className="px-6 py-3 text-left text-2xl font-medium text-gray-500 dark:text-gray-400">Name</th>
-                        <th className="px-6 py-3 text-left text-2xl font-medium text-gray-500 dark:text-gray-400">Price</th>
-                        <th className="flex gap-4 px-6 py-3 text-left text-2xl font-medium text-gray-500 dark:text-gray-400">PNL</th>
+                        <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Rank</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Name</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Price</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">PNL</th>
                     </tr>
                 </thead>
-                <tbody className="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-600">
+                <tbody className={`${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'} divide-y divide-gray-200 dark:divide-gray-600`}>
                     {topData.map((item, index) => (
                         <tr key={index}>
-                            <td className="px-6 py-4 whitespace-nowrap text-center dark:border-slate-700 p-4">
-                                <div className="text-lg font-medium text-gray-900 dark:text-white">{index + 1}</div>
+                            <td className="px-6 py-4 text-center whitespace-nowrap dark:border-slate-700 p-4">
+                                <div className="text-lg">{index + 1}</div>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap flex items-center">
-                                <div>
-                                    <div className="text-lg font-medium text-gray-900 dark:text-white">
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="flex items-center">
+                                    <div className="text-lg">
                                         {item.tokenInfo.name}
                                     </div>
                                 </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="text-lg text-gray-900 dark:text-white">
+                                <div className="text-lg">
                                     {item.tokenInfo.price && item.tokenInfo.price.rate !== undefined
                                         ? `$${item.tokenInfo.price.rate.toFixed(2)}`
                                         : 'N/A'}

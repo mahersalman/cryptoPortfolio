@@ -60,14 +60,14 @@ function WalletData({wallet}) {
           <TotalBalanceChart tokens={Tokens}/>
          </div>
          <div> 
-          <ThemeProvider>
+    
           <div>
             <TabButtons setActiveTab={setActiveTab} />
             {activeTab === 'assets' && <AssetsTable tokens = {Tokens}/>}
             {activeTab === 'transactions' && <TransactionTable wallet={wallet}/>}
             {activeTab === 'BestPerforming' && <BestPerformingTable tokens = {Tokens}/>}
           </div>
-          </ThemeProvider> 
+  
 
         </div>
         </>

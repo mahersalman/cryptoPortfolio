@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import NavBar from './components/NavBar';
 import { AppKitProvider } from './AppKitProvider';
 import WalletData from './components/WalletData';
 import Banner from "./components/Banner";
-
+import { ThemeProvider, ThemeContext } from './components/ThemeContext';
 
 function App() {
   const [wallet, setWallet] = useState({
     Address: '',
     Network: '',
-    isConnected: false
+    isConnected: false,
   });
-
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const handleConnect = (address, network, isConnected) => {
     setWallet({
@@ -22,34 +20,30 @@ function App() {
     });
   };
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDarkMode]);
-
   return (
-    <div>
-        <AppKitProvider>    
-          <NavBar handleConnect={handleConnect} />
-           
-          {wallet.isConnected ? (
-              <div>
-                <WalletData wallet={wallet} />
-              </div>
+    <ThemeProvider>
+      <ThemeContext.Consumer>
+        {({ theme }) => (
+          <div
+            className={`min-h-screen ${
+              theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'
+            }`}
+          >
+            <AppKitProvider>
+              <NavBar handleConnect={handleConnect} />
+              {wallet.isConnected ? (
+                <div>
+                  <WalletData wallet={wallet} />
+                </div>
               ) : (
                 <Banner />
-              )
-          }
-        </AppKitProvider>
-    </div>
-    );
+              )}
+            </AppKitProvider>
+          </div>
+        )}
+      </ThemeContext.Consumer>
+    </ThemeProvider>
+  );
 }
 
 export default App;

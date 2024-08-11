@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import AliceCarousel from "react-alice-carousel";
-import "react-alice-carousel/lib/alice-carousel.css"; // Import the carousel CSS
+import "react-alice-carousel/lib/alice-carousel.css";
+import { ThemeContext } from "./ThemeContext"; // Import ThemeContext
 
 const Carousel = () => {
+  const { theme } = useContext(ThemeContext); // Access theme from context
   const currency = "USD";
   const symbol = "$";
   const [trending, setTrending] = useState([]);
@@ -11,15 +13,16 @@ const Carousel = () => {
   const fetchTrendingCoins = async () => {
     try {
       const { data } = await axios.get(
-        `https://api.coingecko.com/api/v3/coins/markets`, {
+        `https://api.coingecko.com/api/v3/coins/markets`,
+        {
           params: {
             vs_currency: currency,
             order: "gecko_desc",
             per_page: 10,
             page: 1,
             sparkline: false,
-            price_change_percentage: "24h"
-          }
+            price_change_percentage: "24h",
+          },
         }
       );
       setTrending(data);
@@ -36,16 +39,20 @@ const Carousel = () => {
     let profit = coin?.price_change_percentage_24h >= 0;
 
     return (
-      <div key={coin.id} className="flex flex-col items-center justify-center text-black">
-        <img
-          src={coin?.image}
-          alt={coin.name}
-          className="h-20 mb-2"
-        />
+      <div
+        key={coin.id}
+        className={`flex flex-col items-center justify-center ${
+          theme === "dark" ? "text-white" : "text-black"
+        }`}
+      >
+        <img src={coin?.image} alt={coin.name} className="h-20 mb-2" />
         <span className="uppercase">
-          {coin?.symbol.toUpperCase()}
-          &nbsp;
-          <span className={`font-semibold ${profit ? "text-green-500" : "text-red-500"}`}>
+          {coin?.symbol.toUpperCase()} &nbsp;
+          <span
+            className={`font-semibold ${
+              profit ? "text-green-500" : "text-red-500"
+            }`}
+          >
             {profit && "+"}
             {coin?.price_change_percentage_24h?.toFixed(2)}%
           </span>

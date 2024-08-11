@@ -3,7 +3,7 @@ import { ThemeContext } from './ThemeContext';
 
 const ThemeToggleButton = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
-
+  console.log('Current theme in ThemeToggleButton:', theme); // Debugging line
   return (
     <button
       onClick={toggleTheme}

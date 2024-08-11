@@ -1,33 +1,43 @@
 import { LinearProgress, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { ThemeContext } from "./ThemeContext"; // Import ThemeContext
 
 // Define your styles using the makeStyles hook from MUI
-const useStyles = makeStyles(() => ({
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "20px",
-  },
-  header: {
-    marginBottom: "20px",
-  },
-  content: {
-    width: "100%",
-    maxWidth: "800px",
-  },
-}));
+const useStyles = (theme) =>
+  makeStyles({
+    container: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      padding: "20px",
+      backgroundColor: theme === "dark" ? "#333" : "#fff",
+      color: theme === "dark" ? "#fff" : "#000",
+    },
+    header: {
+      marginBottom: "20px",
+    },
+    content: {
+      width: "100%",
+      maxWidth: "800px",
+      backgroundColor: theme === "dark" ? "#444" : "#f9f9f9",
+      padding: "20px",
+      borderRadius: "8px",
+    },
+  });
 
 const CoinPage = () => {
-  const classes = useStyles();
+  const { theme } = useContext(ThemeContext); // Access theme from context
+  const classes = useStyles(theme)();
   const [coinData, setCoinData] = useState(null);
 
   useEffect(() => {
     const fetchCoinData = async () => {
       try {
-        const response = await axios.get("https://api.coingecko.com/api/v3/coins/bitcoin");
+        const response = await axios.get(
+          "https://api.coingecko.com/api/v3/coins/bitcoin"
+        );
         setCoinData(response.data);
       } catch (error) {
         console.error("Error fetching the coin data:", error);
@@ -60,7 +70,7 @@ const CoinPage = () => {
         <Typography variant="body1">
           24h Low: ${coinData.market_data.low_24h.usd}
         </Typography>
-        {/* Add more data as needed */}
+        
       </div>
     </div>
   );
