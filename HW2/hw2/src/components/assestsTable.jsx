@@ -35,7 +35,7 @@ const AssetsTable = ({ tokens }) => {
               const tokenImage = `${baseImageUrl}${tokenSymbol}.svg`;
 
               return (
-                <tr key={index}>
+                <tr key={index} className={`${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}>
                   <td className="px-6 py-4 text-center whitespace-nowrap">
                     <div className="flex gap-3 text-lg">
                       <img src={tokenImage} alt={token.tokenInfo.name} width="24" height="24" onError={handleImageError} />

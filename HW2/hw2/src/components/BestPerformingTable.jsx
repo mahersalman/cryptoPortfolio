@@ -46,8 +46,8 @@ const BestPerformingTable = ({ tokens }) => {
             </select>
         </div>
 
-        <div className={`w-full overflow-x-auto rounded-3xl border-slate-400 p-4 ${theme === 'dark' ? 'dark:border-slate-700' : ''}`}>
-            <table className={`min-w-full rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}>
+        <div className={`w-full overflow-x-auto rounded-full border-slate-400 p-4 ${theme === 'dark' ? 'dark:border-slate-700' : ''}`}>
+            <table className={`min-w-full rounded-full ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}>
                 <thead className={`${theme === 'dark' ? 'bg-gray-900 text-gray-50' : 'bg-gray-50 text-gray-800'}`}>
                     <tr>
                         <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Rank</th>
@@ -58,8 +58,8 @@ const BestPerformingTable = ({ tokens }) => {
                 </thead>
                 <tbody className={`${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'} divide-y divide-gray-200 dark:divide-gray-600`}>
                     {topData.map((item, index) => (
-                        <tr key={index}>
-                            <td className="px-6 py-4 text-center whitespace-nowrap dark:border-slate-700 p-4">
+                        <tr key={index} className="border border-gray-600 rounded-full overflow-hidden">
+                            <td className="px-6 py-4 text-center whitespace-nowrap rounded-full">
                                 <div className="text-lg">{index + 1}</div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
@@ -76,7 +76,7 @@ const BestPerformingTable = ({ tokens }) => {
                                         : 'N/A'}
                                 </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-6 py-4 text-center whitespace-nowrap rounded-r-lg">
                                 <div
                                     className={`text-lg ${
                                         getValue(item, selectedFilter) >= 0
