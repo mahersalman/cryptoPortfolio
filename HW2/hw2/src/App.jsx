@@ -25,7 +25,7 @@ function App() {
       <ThemeContext.Consumer>
         {({ theme }) => (
           <div
-            className={`min-h-screen ${
+            className={` ${
               theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'
             }`}
           >
