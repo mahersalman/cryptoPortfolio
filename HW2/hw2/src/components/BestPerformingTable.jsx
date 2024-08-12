@@ -76,7 +76,7 @@ const BestPerformingTable = ({ tokens }) => {
                                         : 'N/A'}
                                 </div>
                             </td>
-                            <td className="px-6 py-4 text-center whitespace-nowrap rounded-r-lg">
+                            <td className="px-6 py-4  whitespace-nowrap rounded-r-lg">
                                 <div
                                     className={`text-lg ${
                                         getValue(item, selectedFilter) >= 0
