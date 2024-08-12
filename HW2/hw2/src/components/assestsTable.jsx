@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from './ThemeContext'; // Import ThemeContext
-
+import CryptoIcon from './CryptoIcon'
 const AssetsTable = ({ tokens }) => {
   const { theme } = useContext(ThemeContext); // Access the theme using useContext
   const baseImageUrl = '/node_modules/cryptocurrency-icons/svg/color/'; // Base URL for token images
@@ -33,16 +33,17 @@ const AssetsTable = ({ tokens }) => {
               const total = (parseFloat(price) * parseFloat(balance)).toFixed(2); // Total value in USD
               const tokenSymbol = token.tokenInfo.symbol.toLowerCase();
               const tokenImage = `${baseImageUrl}${tokenSymbol}.svg`;
+              const name = token.tokenInfo.name.toLowerCase();
 
               return (
                 <tr key={index} className={`${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}>
                   <td className="px-6 py-4 text-center whitespace-nowrap">
                     <div className="flex gap-3 text-lg">
-                      <img src={tokenImage} alt={token.tokenInfo.name} width="24" height="24" onError={handleImageError} />
+                    <CryptoIcon coinId={name}></CryptoIcon>
                       <div className="flex flex-col items-center">
                         <div>{token.tokenInfo.symbol}</div>
                         <div className="text-sm text-gray-500 dark:text-gray-400">
-                          {token.tokenInfo.name}
+                          {token.tokenInfo.symbol}
                         </div>
                       </div>
                     </div>
