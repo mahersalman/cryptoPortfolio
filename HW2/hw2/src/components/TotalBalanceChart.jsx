@@ -72,7 +72,7 @@ function TotalBalanceChart({ tokens }) {
     cutout: '60%', // Adjust the size of the empty circle
     plugins: {
       datalabels: {
-        color: '#0000FF',
+        color: '#000000',
         formatter: (value, context) => {
           const total = context.chart.data.datasets[0].data.reduce((sum, value) => sum + value, 0);
           const percentage = ((value / total) * 100).toFixed(2);
@@ -88,20 +88,21 @@ function TotalBalanceChart({ tokens }) {
   };
 
   return (
-    <div className="glassmorphism p-6 rounded-3xl border-slate-400 dark:border-slate-700 flex bg-slate-400">
-      <div className="w-full">
+    <div className="flex justify-center items-center gap-20 p-6">
+      <div className="flex flex-col items-center glassmorphism p-6 rounded-3xl border-slate-400 dark:border-slate-700 bg-slate-400">
         <h2 className="text-xl font-semibold mb-4 text-center">Portfolio Distribution</h2>
         <div className="w-full h-64">
-          <div className="h-64">
-            <Doughnut data={chartData} options={options} />
-          </div>
+          <Doughnut data={chartData} options={options} />
         </div>
       </div>
-      <div className="ml-6 flex flex-col justify-center">
-        <h3 className="text-lg font-semibold">Total Balance:</h3>
-        <p className="text-xl font-bold">${totalBalanceInDollars.toFixed(2)}</p>
+      <div className="flex flex-col items-center justify-center p-10 rounded-3xl border-slate-400 dark:border-slate-700 bg-slate-400">
+        <h3 className="text-lg font-semibold mb-2">Total Balance:</h3>
+        <div className="p-2 rounded-lg">
+          <p className="text-xl font-bold">${totalBalanceInDollars.toFixed(2)}</p>
+        </div>
       </div>
     </div>
+
   );
 }
 

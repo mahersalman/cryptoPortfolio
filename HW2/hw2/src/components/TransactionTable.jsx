@@ -47,42 +47,42 @@ const TransactionTable = ({wallet}) => {
     const tokenValue = (item.value / Math.pow(10, tokenDecimals)).toFixed(2);
     const tokenSymbol = item.tokenInfo.symbol.toLowerCase();
     const tokenImage = `${baseImageUrl}${tokenSymbol}.svg`;
-  
+
     return (
       <tr key={index}>
         <td className="px-6 py-4 text-center whitespace-nowrap">
-          <div className="text-lg text-gray-900 dark:text-white">{formatDate(item.timestamp)}</div>
+          <div className={`text-lg ${theme === 'dark' ? 'dark:text-white' : 'text-gray-900'}`}>{formatDate(item.timestamp)}</div>
         </td>
         <td className="px-6 py-4 text-center whitespace-nowrap">
           <Tooltip title={item.transactionHash} position="top" trigger="click" arrow={true}>
-            <div className="text-lg text-gray-900 dark:text-white cursor-pointer">
+            <div className={`text-lg ${theme === 'dark' ? 'dark:text-white' : 'text-gray-900'}`}>
               {item.transactionHash ? `${item.transactionHash.substring(0, 5)}...` : 'N/A'}
             </div>
           </Tooltip>
         </td>
         <td className="px-6 py-4 text-center whitespace-nowrap">
           <Tooltip title={item.from} position="top" trigger="click" arrow={true}>
-            <div className="text-lg text-gray-900 dark:text-white cursor-pointer">
+            <div className={`text-lg ${theme === 'dark' ? 'dark:text-white' : 'text-gray-900'}`}>
               {item.from ? `${item.from.substring(0, 6)}...${item.from.slice(-4)}` : 'N/A'}
             </div>
           </Tooltip>
         </td>
         <td className="px-6 py-4 text-center whitespace-nowrap">
           <Tooltip title={item.to} position="top" trigger="click" arrow={true}>
-            <div className="text-lg text-gray-900 dark:text-white cursor-pointer">
+            <div className={`text-lg ${theme === 'dark' ? 'dark:text-white' : 'text-gray-900'}`}>
               {item.to ? `${item.to.substring(0, 6)}...${item.to.slice(-4)}` : 'N/A'}
             </div>
           </Tooltip>
         </td>
         <td className="px-6 py-4 text-center whitespace-nowrap">
-          <div className="text-lg text-gray-900 dark:text-white">{tokenValue}</div>
+          <div className={`text-lg ${theme === 'dark' ? 'dark:text-white' : 'text-gray-900'}`}>{tokenValue}</div>
         </td>
         <td className="px-6 py-4 text-center whitespace-nowrap">
-          <div className="text-lg text-gray-900 dark:text-white">{item.type}</div>
+          <div className={`text-lg ${theme === 'dark' ? 'dark:text-white' : 'text-gray-900'}`}>{item.type}</div>
         </td>
         <td className="px-6 py-4 text-center whitespace-nowrap">
           <div className="flex items-center justify-center">
-            <div className="text-lg text-gray-900 dark:text-white">{item.tokenInfo.name}</div>
+            <div className={`text-lg ${theme === 'dark' ? 'dark:text-white' : 'text-gray-900'}`}>{item.tokenInfo.name}</div>
           </div>
         </td>
       </tr>

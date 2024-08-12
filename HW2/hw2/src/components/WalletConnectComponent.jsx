@@ -8,6 +8,9 @@ export function WalletConnectComponent({ handleConnect }) {
     if (isConnected && address && chain) {
       handleConnect(address, chain.name, isConnected);
     }
+    if (!isConnected){
+      handleConnect("", "",false);
+    }
   }, [isConnected, address, chain]); 
 
   return (

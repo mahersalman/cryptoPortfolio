@@ -6,6 +6,7 @@ import { ThemeProvider } from './ThemeContext';
 import TabButtons from './MarketNavbar';
 import { getUrlString } from './utils'; 
 import BestPerformingTable from './BestPerformingTable';
+import TransactionStats from './feesTable'
 
 function WalletData({wallet}) {
     const [loading, setLoading] = useState(true);
@@ -56,8 +57,9 @@ function WalletData({wallet}) {
 
     return (
         <>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+        <div>
           <TotalBalanceChart tokens={Tokens}/>
+          {/* <TransactionStats wallet={wallet}/> */}
          </div>
          <div> 
     
