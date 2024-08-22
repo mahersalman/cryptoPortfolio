@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getUrlString } from './utils'; 
+import { getUrlString } from '../utils/urlUtils'; 
 
 function TransactionStats({wallet}) {
   const [stats, setStats] = useState({

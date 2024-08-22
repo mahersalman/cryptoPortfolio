@@ -3,7 +3,7 @@ import NavBar from './components/NavBar';
 import { AppKitProvider } from './AppKitProvider';
 import WalletData from './components/WalletData';
 import Banner from "./components/Banner";
-import { ThemeProvider, ThemeContext } from './components/ThemeContext';
+import { ThemeProvider, ThemeContext } from './contexts/ThemeContext';
 
 function App() {
   const [wallet, setWallet] = useState({

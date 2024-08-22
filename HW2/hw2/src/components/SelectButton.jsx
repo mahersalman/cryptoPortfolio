@@ -1,31 +1,15 @@
-import { makeStyles } from "@material-ui/core";
+import React, { useContext } from 'react';
+import { ThemeContext } from '../contexts/ThemeContext'; // Import ThemeContext
+import { darkTheme, lightTheme } from '../utils/classes'; // Import theme classes
 
 const SelectButton = ({ children, selected, onClick }) => {
-  const useStyles = makeStyles({
-    selectbutton: {
-      border: "1px solid gold",
-      borderRadius: 5,
-      padding: 10,
-      paddingLeft: 20,
-      paddingRight: 20,
-      fontFamily: "Montserrat",
-      cursor: "pointer",
-      backgroundColor: selected ? "gold" : "",
-      color: selected ? "black" : "",
-      fontWeight: selected ? 700 : 500,
-      "&:hover": {
-        backgroundColor: "gold",
-        color: "black",
-      },
-      width: "22%",
-      //   margin: 5,
-    },
-  });
+  const { theme } = useContext(ThemeContext); // Get the current theme
+  const themeClasses = theme === "dark" ? darkTheme : lightTheme; // Apply the correct theme classes
 
-  const classes = useStyles();
+  const buttonClasses = `${themeClasses.selectButtonBase} ${selected ? themeClasses.selectButtonSelected : themeClasses.selectButtonUnselected}`;
 
   return (
-    <span onClick={onClick} className={classes.selectbutton}>
+    <span onClick={onClick} className={buttonClasses}>
       {children}
     </span>
   );

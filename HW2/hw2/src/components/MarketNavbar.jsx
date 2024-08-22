@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { ThemeContext } from '../contexts/ThemeContext'; // Import ThemeContext
+import { darkTheme, lightTheme } from '../utils/classes'; // Import theme classes
 
 const TabButtons = ({ setActiveTab }) => {
+  const { theme } = useContext(ThemeContext); // Get the current theme
+  const themeClasses = theme === "dark" ? darkTheme : lightTheme; // Apply the correct theme classes
+
   const [activeButton, setActiveButton] = useState('');
   const [tabOpen, setTabOpen] = useState({
     assets: false,
@@ -30,31 +35,16 @@ const TabButtons = ({ setActiveTab }) => {
   };
 
   return (
-    <div className="w-full flex items-center justify-center space-x-2 sm:space-x-4 mb-4">
-      <button
-        onClick={() => handleClick('assets')}
-        className={`tab-btn flex-shrink-0 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-lg font-bold border-b-4 
-          ${activeButton === 'assets' ? 'text-yellow-400 border-yellow-400' : 'border-transparent'}
-          hover:text-yellow-400 hover:border-yellow-400 transition duration-300`}
-      >
-        Assets
-      </button>
-      <button
-        onClick={() => handleClick('transactions')}
-        className={`tab-btn flex-shrink-0 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-lg font-bold border-b-4 
-          ${activeButton === 'transactions' ? 'text-yellow-400 border-yellow-400' : 'border-transparent'}
-          hover:text-yellow-400 hover:border-yellow-400 transition duration-300`}
-      >
-        Transactions
-      </button>
-      <button
-        onClick={() => handleClick('BestPerforming')}
-        className={`tab-btn flex-shrink-0 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-lg font-bold border-b-4 
-          ${activeButton === 'BestPerforming' ? 'text-yellow-400 border-yellow-400' : 'border-transparent'}
-          hover:text-yellow-400 hover:border-yellow-400 transition duration-300`}
-      >
-        Best Performing
-      </button>
+    <div className={themeClasses.tabContainer}>
+      {['assets', 'transactions', 'BestPerforming'].map(tab => (
+        <button
+          key={tab}
+          onClick={() => handleClick(tab)}
+          className={`${themeClasses.tabButton} ${activeButton === tab ? themeClasses.activeTab : themeClasses.inactiveTab}`}
+        >
+          {tab.charAt(0).toUpperCase() + tab.slice(1)}
+        </button>
+      ))}
     </div>
   );
 };

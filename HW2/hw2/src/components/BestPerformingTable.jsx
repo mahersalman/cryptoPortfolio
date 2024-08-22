@@ -1,98 +1,90 @@
 import React, { useContext, useState } from 'react';
-import { ThemeContext } from './ThemeContext'; // Import ThemeContext
+import { ThemeContext } from '../contexts/ThemeContext'; // Import ThemeContext
+import { sortTokensByPNL, getValue } from '../utils/tokenUtils'; // Import utility functions
+import { darkTheme, lightTheme } from '../utils/classes'; // Import theme objects
 
+// Container component for managing the best performing tokens table
 const BestPerformingTable = ({ tokens }) => {
     const { theme } = useContext(ThemeContext); // Access the theme using useContext
-    const [selectedFilter, setSelectedFilter] = useState('PNL_24h');
+    const [selectedFilter, setSelectedFilter] = useState('PNL_24h'); // State to manage the selected filter
 
+    // Choose the appropriate theme object based on the current theme
+    const themeClasses = theme === 'dark' ? darkTheme : lightTheme;
+
+    // Handle filter change from the dropdown
     const handleFilterChange = (event) => {
-        setSelectedFilter(event.target.value);
-    };
-
-    const getValue = (item, filter) => {
-        switch (filter) {
-            case 'PNL_24h':
-                return item.tokenInfo.price.diff || 0;
-            case 'PNL_week':
-                return item.tokenInfo.price.diff7d || 0;
-            case 'PNL_month':
-                return item.tokenInfo.price.diff30d || 0;
-            default:
-                return 0;
-        }
+        setSelectedFilter(event.target.value); // Update the selected filter state
     };
 
     // Sort the data based on the selected PNL filter
-    const sortedData = [...tokens].sort((a, b) => {
-        const aValue = getValue(a, selectedFilter);
-        const bValue = getValue(b, selectedFilter);
-        return bValue - aValue;
-    });
+    const sortedData = sortTokensByPNL(tokens, selectedFilter);
 
     // Display only the top 10 items
     const topData = sortedData.slice(0, 10);
 
     return (
         <>
-        <div className="flex items-center justify-center gap-4 max-w-lg mx-auto rounded-3xl border-slate-900 p-1" style={{ backgroundColor: theme === 'dark' ? '#4B5563' : '#E5E7EB' }}>
-            <div className={`text-lg font-medium ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>Choose Criteria</div>
-            <select
-                value={selectedFilter}
-                onChange={handleFilterChange}
-                className={`w-28 border rounded-full py-2 px-4 ${theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-gray-300 text-gray-900'}`}>
-                <option value="PNL_24h">24h PNL</option>
-                <option value="PNL_week">7d PNL</option>
-                <option value="PNL_month">30d PNL</option>
-            </select>
-        </div>
+            {/* Filter Dropdown */}
+            <div className={themeClasses.filterContainer}>
+                <div className="text-lg font-medium">Choose Criteria</div>
+                <select
+                    value={selectedFilter}
+                    onChange={handleFilterChange}
+                    className={themeClasses.selectClass}>
+                    <option value="PNL_24h">24h PNL</option>
+                    <option value="PNL_week">7d PNL</option>
+                    <option value="PNL_month">30d PNL</option>
+                </select>
+            </div>
 
-        <div className={`w-full overflow-x-auto rounded-full border-slate-400 p-4 ${theme === 'dark' ? 'dark:border-slate-700' : ''}`}>
-            <table className={`min-w-full rounded-full ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}>
-                <thead className={`${theme === 'dark' ? 'bg-gray-900 text-gray-50' : 'bg-gray-50 text-gray-800'}`}>
-                    <tr>
-                        <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Rank</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Name</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Price</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">PNL</th>
-                    </tr>
-                </thead>
-                <tbody className={`${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'} divide-y divide-gray-200 dark:divide-gray-600`}>
-                    {topData.map((item, index) => (
-                        <tr key={index} className="border border-gray-600 rounded-full overflow-hidden">
-                            <td className="px-6 py-4 text-center whitespace-nowrap rounded-full">
-                                <div className="text-lg">{index + 1}</div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="flex items-center">
-                                    <div className="text-lg">
-                                        {item.tokenInfo.name}
-                                    </div>
-                                </div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="text-lg">
-                                    {item.tokenInfo.price && item.tokenInfo.price.rate !== undefined
-                                        ? `$${item.tokenInfo.price.rate.toFixed(2)}`
-                                        : 'N/A'}
-                                </div>
-                            </td>
-                            <td className="px-6 py-4  whitespace-nowrap rounded-r-lg">
-                                <div
-                                    className={`text-lg ${
-                                        getValue(item, selectedFilter) >= 0
-                                            ? 'text-green-500 dark:text-green-400'
-                                            : 'text-red-500 dark:text-red-400'
-                                    }`}>
-                                    {getValue(item, selectedFilter) !== undefined
-                                        ? `${getValue(item, selectedFilter).toFixed(2)}%`
-                                        : 'N/A'}
-                                </div>
-                            </td>
+            {/* Table displaying the top performing tokens */}
+            <div className={themeClasses.tableContainer}>
+                <table className={themeClasses.table}>
+                    <thead className={themeClasses.thead}>
+                        <tr>
+                            <th className={themeClasses.thClasses}>Rank</th>
+                            <th className={themeClasses.thClasses}>Name</th>
+                            <th className={themeClasses.thClasses}>Price</th>
+                            <th className={themeClasses.thClasses}>PNL</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody className={themeClasses.tbody}>
+                        {topData.map((item, index) => (
+                            <tr key={index} className={themeClasses.tableRowContainer}>
+                                <td className={themeClasses.tableCell}>
+                                    <div className="text-lg">{index + 1}</div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="flex items-center">
+                                        <div className="text-lg">
+                                            {item.tokenInfo.name}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="text-lg">
+                                        {item.tokenInfo.price && item.tokenInfo.price.rate !== undefined
+                                            ? `$${item.tokenInfo.price.rate.toFixed(2)}`
+                                            : 'N/A'}
+                                    </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap rounded-r-lg">
+                                    <div
+                                        className={`text-lg ${
+                                            getValue(item, selectedFilter) >= 0
+                                                ? themeClasses.positiveText
+                                                : themeClasses.negativeText
+                                        }`}>
+                                        {getValue(item, selectedFilter) !== undefined
+                                            ? `${getValue(item, selectedFilter).toFixed(2)}%`
+                                            : 'N/A'}
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </>
     );
 };
