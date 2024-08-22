@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Pagination from "@mui/lab/Pagination";
+import Pagination from "@mui/material/Pagination";
 import {
   Container,
   createTheme,
@@ -18,7 +18,6 @@ import {
 import { styled } from "@mui/material/styles";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";  // Replace useHistory with useNavigate
-import { CryptoState } from "../CryptoContext";
 
 // Example of using the styled API
 const StyledTableRow = styled(TableRow)({
@@ -30,14 +29,13 @@ const StyledTableRow = styled(TableRow)({
   fontFamily: "Montserrat",
 });
 
-
 const CoinsTable = () => {
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
-  const { currency, symbol } = CryptoState();
+  const { currency, symbol } = ["USD", "$"];
   const navigate = useNavigate();  // Use useNavigate instead of useHistory
 
   const darkTheme = createTheme({
@@ -53,15 +51,15 @@ const CoinsTable = () => {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        `https://api.coingecko.com/api/v3/coins/markets`, 
+        `https://api.coingecko.com/api/v3/coins/markets`,
         {
           params: {
             vs_currency: currency,
-            order: 'market_cap_desc',
+            order: "market_cap_desc",
             per_page: 100,
             page: 1,
-            sparkline: false
-          }
+            sparkline: false,
+          },
         }
       );
       setCoins(data);
@@ -81,6 +79,10 @@ const CoinsTable = () => {
         coin.name.toLowerCase().includes(search) ||
         coin.symbol.toLowerCase().includes(search)
     );
+  };
+
+  const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   return (

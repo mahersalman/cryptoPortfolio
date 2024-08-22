@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import Carousel from "./Carousel";
 import { ThemeContext } from "./ThemeContext"; // Import ThemeContext
+import CoinsTable from "./CoinsTable";
+//import CoinPage from "./CoinPage";
 
 function Banner() {
   const { theme } = useContext(ThemeContext); // Access theme from context
@@ -11,7 +13,7 @@ function Banner() {
         theme === 'dark'
           ? "bg-gray-800 text-white"
           : "bg-gray-100 text-black"
-      }`}
+      } overflow-hidden`}
     >
       <div className="container mx-auto px-4 flex flex-col items-center text-center space-y-8">
         <div>
@@ -31,7 +33,6 @@ function Banner() {
             Connect Your Hardware Wallet, Binance, Coinbase, MetaMask, Trust Wallet, And Any Other Crypto Platforms To CryptoTrack In Just A Few Clicks.
           </h3>
         </div>
-
       </div>
     </div>
   );

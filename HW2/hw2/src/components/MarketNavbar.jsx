@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 
 const TabButtons = ({ setActiveTab }) => {
@@ -10,7 +9,6 @@ const TabButtons = ({ setActiveTab }) => {
   });
 
   const handleClick = (tab) => {
-    // Set all tabs to closed initially
     const allTabsClosed = {
       assets: false,
       transactions: false,
@@ -18,26 +16,24 @@ const TabButtons = ({ setActiveTab }) => {
     };
 
     if (tabOpen[tab]) {
-      // If the tab is already open, close it
-      setActiveTab(''); // Close the tab
-      setActiveButton(''); // Turn off active button
-      setTabOpen(allTabsClosed); // Close all tabs
+      setActiveTab(''); 
+      setActiveButton(''); 
+      setTabOpen(allTabsClosed); 
     } else {
-      // If the tab is closed, open it
-      setActiveTab(tab); // Set active tab
-      setActiveButton(tab); // Set active button for styling
+      setActiveTab(tab); 
+      setActiveButton(tab); 
       setTabOpen({
         ...allTabsClosed,
-        [tab]: true, // Open the selected tab
+        [tab]: true, 
       });
     }
   };
 
   return (
-    <div className="w-full flex items-center justify-center space-x-4 mb-4">
+    <div className="w-full flex items-center justify-center space-x-2 sm:space-x-4 mb-4">
       <button
         onClick={() => handleClick('assets')}
-        className={`tab-btn px-4 py-2 text-lg font-bold border-b-4 
+        className={`tab-btn flex-shrink-0 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-lg font-bold border-b-4 
           ${activeButton === 'assets' ? 'text-yellow-400 border-yellow-400' : 'border-transparent'}
           hover:text-yellow-400 hover:border-yellow-400 transition duration-300`}
       >
@@ -45,7 +41,7 @@ const TabButtons = ({ setActiveTab }) => {
       </button>
       <button
         onClick={() => handleClick('transactions')}
-        className={`tab-btn px-4 py-2 text-lg font-bold border-b-4 
+        className={`tab-btn flex-shrink-0 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-lg font-bold border-b-4 
           ${activeButton === 'transactions' ? 'text-yellow-400 border-yellow-400' : 'border-transparent'}
           hover:text-yellow-400 hover:border-yellow-400 transition duration-300`}
       >
@@ -53,11 +49,11 @@ const TabButtons = ({ setActiveTab }) => {
       </button>
       <button
         onClick={() => handleClick('BestPerforming')}
-        className={`tab-btn px-4 py-2 text-lg font-bold border-b-4 
+        className={`tab-btn flex-shrink-0 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-lg font-bold border-b-4 
           ${activeButton === 'BestPerforming' ? 'text-yellow-400 border-yellow-400' : 'border-transparent'}
           hover:text-yellow-400 hover:border-yellow-400 transition duration-300`}
       >
-        BestPerforming
+        Best Performing
       </button>
     </div>
   );
