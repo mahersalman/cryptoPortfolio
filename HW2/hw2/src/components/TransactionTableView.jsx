@@ -52,17 +52,17 @@ const TransactionTableView = ({ transactions, themeClasses }) => {
   };
 
   return (
-    <div id="TransactionTable" className={themeClasses.tableContainer}>
-      <table className={themeClasses.table}>
+    <div id="TransactionTable" className={`overflow-x-auto ${themeClasses.tableContainer}`}>
+      <table className={`min-w-full ${themeClasses.table}`}>
         <thead className={themeClasses.thead}>
           <tr>
-            <th className={themeClasses.thClasses}>Date & Time</th>
-            <th className={themeClasses.thClasses}>Tx Hash</th>
-            <th className={themeClasses.thClasses}>From</th>
-            <th className={themeClasses.thClasses}>To</th>
-            <th className={themeClasses.thClasses}>Amount</th>
-            <th className={themeClasses.thClasses}>Type</th>
-            <th className={themeClasses.thClasses}>Token</th>
+            <th className={`${themeClasses.thClasses} text-left`}>Date & Time</th>
+            <th className={`${themeClasses.thClasses} text-left`}>Tx Hash</th>
+            <th className={`${themeClasses.thClasses} text-left`}>From</th>
+            <th className={`${themeClasses.thClasses} text-left`}>To</th>
+            <th className={`${themeClasses.thClasses} text-right`}>Amount</th>
+            <th className={`${themeClasses.thClasses} text-left`}>Type</th>
+            <th className={`${themeClasses.thClasses} text-left`}>Token</th>
           </tr>
         </thead>
         <tbody className={themeClasses.tbody}>

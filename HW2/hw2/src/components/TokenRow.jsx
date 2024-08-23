@@ -14,33 +14,31 @@ const TokenRow = ({ token, theme }) => {
   const name = token.tokenInfo.name.toLowerCase();
 
   return (
-    <tr className={themeClasses.tokenRow}>
-      <td className={themeClasses.tokenCell}>
-        <div className="flex gap-3 text-lg">
+    <tr className={themeClasses.tableRow}>
+      <td className={`${themeClasses.tableCell} flex items-center justify-center`}>
+        <div className="flex items-center justify-center gap-2">
           <CryptoIcon coinId={name} /> {/* Render token icon */}
-          <div className="flex flex-col items-center">
+          <div className="text-left">
             <div>{token.tokenInfo.symbol}</div>
-            <div className={themeClasses.tokenSymbolText}>
-              {token.tokenInfo.symbol}
-            </div>
+            <div className={themeClasses.tokenSymbolText}>{token.tokenInfo.name}</div>
           </div>
         </div>
       </td>
-      <td className={themeClasses.tokenCell}>
+      <td className={themeClasses.tableCell}>
         <div>{balance}</div>
       </td>
-      <td className={themeClasses.tokenCell}>
+      <td className={themeClasses.tableCell}>
         <div className={priceChange >= 0 ? themeClasses.positiveChange : themeClasses.negativeChange}>
           {priceChange}%
         </div>
       </td>
-      <td className={themeClasses.tokenCell}>
+      <td className={themeClasses.tableCell}>
         <div>{price}$</div>
       </td>
-      <td className={themeClasses.tokenCell}>
+      <td className={themeClasses.tableCell}>
         <div>{avgBuy}$</div>
       </td>
-      <td className={themeClasses.tokenCell}>
+      <td className={themeClasses.tableCell}>
         <div>{total}$</div>
       </td>
     </tr>

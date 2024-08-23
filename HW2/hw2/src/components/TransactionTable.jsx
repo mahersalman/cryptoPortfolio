@@ -6,11 +6,11 @@ import { darkTheme, lightTheme } from '../utils/classes'; // Import theme object
 
 const TransactionTable = ({ wallet }) => {
   const { theme } = useContext(ThemeContext);
+  const themeClasses = theme === 'dark' ? darkTheme : lightTheme;
+
   const [transactions, setTransactions] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const themeClasses = theme === 'dark' ? darkTheme : lightTheme;
 
   useEffect(() => {
     const getTransactions = async () => {
