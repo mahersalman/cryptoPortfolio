@@ -18,7 +18,7 @@ const TokenRow = ({ symbol, data, theme }) => {
         </div>
       </td>
       <td className={themeClasses.tableCell}>
-        <div>{data.balance}</div>
+        <div>{data.balance.toFixed(3)}</div>
       </td>
       <td className={themeClasses.tableCell}>
         <div className={data.price.diff >= 0 ? themeClasses.positiveChange : themeClasses.negativeChange}>
@@ -28,11 +28,9 @@ const TokenRow = ({ symbol, data, theme }) => {
       <td className={themeClasses.tableCell}>
         <div>{data.price.rate}$</div>
       </td>
+
       <td className={themeClasses.tableCell}>
-        <div>{data.price.bid}$</div>
-      </td>
-      <td className={themeClasses.tableCell}>
-        <div>{data.balanceInUsd}$</div>
+        <div>{data.balanceInUsd.toFixed(2)}$</div>
       </td>
     </tr>
   );

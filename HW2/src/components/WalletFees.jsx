@@ -72,14 +72,20 @@ function WalletFees ({address}) {
     },[address]);
 
     return (
-        <div className='w-1/2 mx-auto p-4 bg-gray-800 bg-gray-700 mb-4 rounded-lg text-blue-50 relative w-64 h-64'>
-            <h1>Wallet Gas Fees</h1>
-            <div>
-                <p>Total ETH fees: {ethFees.toFixed(3)} ETH</p>
-                <p>Total BNB fees: {bnbFees.toFixed(3)} BNB</p>
-                <p>Total fees in USD: ${ethFees+bnbFees}</p>
+        <>
+        <div className='flex items-center justify-center h-24'>
+                Wallet Gas Fees<br/><br/>
+                Total fees in USD: ${ethFees+bnbFees}
             </div>
-        </div>
+            <div className="grid grid-cols-2 gap-2">
+                <div className="flex items-center justify-center h-24">
+                    ETH fees:<br/> {ethFees.toFixed(3)} ETH
+                </div>
+                <div className="flex items-center justify-center  h-24">
+                     BNB fees:<br/> {bnbFees.toFixed(3)} BNB
+                </div>
+            </div>
+        </>
     );
 };
 

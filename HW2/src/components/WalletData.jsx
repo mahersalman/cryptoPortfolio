@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import AssetsTable from './AssetsTable';
 import TransactionTable from './TransactionTable';
-import BalanceCharts from './BalanceCharts';
 import TabButtons from './TabButtons';
 import { getUrlString } from '../utils/urlUtils';  
 import BestPerformingTable from './BestPerformingTable';
-import WalletFees from './WalletFees';
+import MainData from './MainData';
 
 export function processWalletData(data) {
     const result = {};
@@ -75,9 +74,8 @@ function WalletData({ wallet }) {
     
     return (
         <>
-            <div className='flex justify-between'>
-                {<BalanceCharts data={tokens}/>}
-                {<WalletFees address={wallet.Address}/>}
+            <div className=''>
+                <MainData address={wallet.Address} tokens = {tokens}/>
             </div>
             <div>
                 <TabButtons setActiveTab={setActiveTab} />

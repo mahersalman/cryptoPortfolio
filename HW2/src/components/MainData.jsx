@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import DistributionChart from './DistributionChart';
+import React , {useState , useEffect} from "react";
+import WalletFees from "./WalletFees";
+import DistributionChart from "./DistributionChart";
 
-function BalanceCharts({ data }) {
+function MainData({address, tokens}) {
   const [totalBalance, setTotalBalance] = useState(0);
   const [topBalances, setTopBalances] = useState([]);
 
   useEffect(() => {
     const calculateData = () => {
-      const dataArray = data.map(([symbol, crypto]) => ({
+      const dataArray = tokens.map(([symbol, crypto]) => ({
         symbol,
         balanceInUsd: crypto.balanceInUsd,
       }));
@@ -33,26 +34,27 @@ function BalanceCharts({ data }) {
       setTopBalances(top3);
     };
 
-    if (data) {
+    if (tokens) {
       calculateData();
     }
-  }, [data]);
+  }, [tokens]);
 
   return (
-    <>
-      {/* Balance Rectangle */}
-      <div className='p-4 bg-gray-800 bg-gray-700 p-4 mb-4 rounded-lg relative w-64 h-64 justify-center items-center text-blue-50 text-3xl '>
-          <h2>Balance (USD): ${totalBalance.toFixed(2)}</h2>
-      </div>
-  
-      {/* Top Tokens Rectangle */}
-      <div className='bg-gray-600 p-4 rounded-lg  w-1/2 mx-auto p-4 bg-gray-800 relative w-auto h-64 '>
-        <DistributionChart tokens={topBalances}/>
-      </div>
-    </>
-  
+    <div className="flex space-x-4">
+        <div className="p-4 bg-gray-800 rounded-lg text-blue-50 w-64 h-80">
+            Balance (USD):<br/> ${totalBalance.toFixed(2)}
+        </div>
+        <div className="p-4 bg-gray-800 rounded-lg text-blue-50 w-64 h-80">
+            {<WalletFees address={address}/>}
+        </div>
+        <div className="p-4 bg-gray-800 rounded-lg text-blue-50 flex-grow h-80">
+            <DistributionChart tokens={topBalances}/>
+        </div>
+    </div>
   );
-  
 }
 
-export default BalanceCharts;
+export default MainData;
+
+
+

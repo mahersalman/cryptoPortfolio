@@ -15,7 +15,6 @@ const AssetsTable = ({ tokens }) => {
             <th className={themeClasses.thClasses}>Amount</th>
             <th className={themeClasses.thClasses}>24h Change (%)</th>
             <th className={themeClasses.thClasses}>Price (USD)</th>
-            <th className={themeClasses.thClasses}>Avg Buy (USD)</th>
             <th className={themeClasses.thClasses}>Total (USD)</th>
           </tr>
         </thead>

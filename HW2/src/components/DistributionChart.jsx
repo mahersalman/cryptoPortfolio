@@ -1,71 +1,84 @@
-import React, {useState} from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import { AgCharts } from 'ag-charts-react';
 
-function DistributionChart({tokens}){
-    const [options, setOptions] = useState({
-        data: tokens,
-        title: {
-          text: "Portfolio Composition",
-        },
-        series: [
-          {
-            type: "donut",
-            calloutLabelKey: "symbol",
-            angleKey: "balanceInUsd",
-            innerRadiusRatio: 0.9,
-            innerLabels: [
-              {
-                text: "Total Investment",
-                fontWeight: "bold",
-              },
-              {
-                text: "$100,000",
-                spacing: 4,
-                fontSize: 48,
-                color: "green",
-              },
-            ],
-            innerCircle: {
-              fill: "#c9fdc9",
+function DistributionChart({ tokens }) {
+  const chartContainerRef = useRef(null);
+  const [options, setOptions] = useState(null);
+
+  useEffect(() => {
+    const total = tokens.reduce((sum, token) => sum + token.balanceInUsd, 0);
+
+    const numFormatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
+
+    const chartOptions = {
+      container: chartContainerRef.current,
+      data: tokens,
+      title: {
+        text: "Token Distribution",
+      },
+      series: [
+        {
+          type: "donut",
+          calloutLabelKey: "symbol",
+          angleKey: "balanceInUsd",
+          sectorLabelKey: "balanceInUsd",
+          calloutLabel: {
+            enabled: true,
+          },
+          sectorLabel: {
+            formatter: ({ datum, sectorLabelKey }) => {
+              const value = datum[sectorLabelKey];
+              return numFormatter.format(value);
             },
           },
-        ],
-      });
+          title: {
+            text: "USD Balance",
+          },
+          innerRadiusRatio: 0.7,
+          innerLabels: [
+            {
+              text: numFormatter.format(total),
+              fontSize: 24,
+              color: 'white', // Adjusted color for the center text
+            },
+            {
+              text: "Total",
+              fontSize: 16,
+              color: 'gray', // Optional: Change color for secondary text
+              spacing: 10,
+            },
+          ],
+          tooltip: {
+            renderer: ({ datum, calloutLabelKey, title, sectorLabelKey }) => {
+              return {
+                title,
+                content: `${datum[calloutLabelKey]}: ${numFormatter.format(datum[sectorLabelKey])}`,
+              };
+            },
+          },
+          sectorSpacing: 5,
+        },
+      ],
+      legend: {
+        enabled: true,
+        position: 'right',
+        maxHeight: 400,
+        item: {
+          maxWidth: 200,
+        },
+        paging: {
+          enabled: false,
+        },
+      },
+    };
 
-    return (
-    <div className='text-blue-50 text-3xl'>
-        <h3>Top Tokens by USD Balance:</h3>
-        <ul>
-            {tokens.map(({ symbol, balanceInUsd }) => (
-            <li key={symbol}>
-                {symbol}: ${balanceInUsd.toFixed(2)}
-            </li>
-            ))}
-        </ul>
-       { /*<AgCharts options={options} />*/}
-    </div>
-    );
+    setOptions(chartOptions);
+  }, [tokens]);
+
+  return <AgCharts options={options} />
 }
 
 export default DistributionChart;
-
-/*
-[
-    {
-        "symbol": "WETH",
-        "balanceInUsd": 22721556.118836846
-    },
-    {
-        "symbol": "USDC",
-        "balanceInUsd": 17286986.060280558
-    },
-    {
-        "symbol": "WBTC",
-        "balanceInUsd": 16909831.50265212
-    },
-    {
-        "symbol": "Other",
-        "balanceInUsd": 22337068.833084423
-    }
-]
-*/
