@@ -10,7 +10,6 @@ const TransactionTable = ({ wallet }) => {
 
   const [transactions, setTransactions] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getTransactions = async () => {
@@ -18,7 +17,7 @@ const TransactionTable = ({ wallet }) => {
         const operations = await fetchTransactions(wallet.Network, wallet.Address);
         setTransactions(operations);
       } catch (err) {
-        setError(err);
+        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -27,8 +26,7 @@ const TransactionTable = ({ wallet }) => {
     getTransactions();
   }, [wallet.Network, wallet.Address]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (loading) return <div className="flex justify-center items-center text-9xl p-4">Loading...</div>;
 
   return <TransactionTableView transactions={transactions} themeClasses={themeClasses} />;
 };

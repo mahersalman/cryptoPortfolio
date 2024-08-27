@@ -8,7 +8,7 @@ const AssetsTable = ({ tokens }) => {
   const themeClasses = theme === 'dark' ? darkTheme : lightTheme;
 
   return (
-    <div id="AssetsTable" className={`${themeClasses.tableContainer} overflow-x-auto max-h-[calc(100vh-200px)] overflow-y-auto`}>
+    <div id="AssetsTable" className={`${themeClasses.tableContainer} overflow-x-auto max-h-[calc(50vh)] overflow-y-auto`}>
       <table className={`${themeClasses.table} w-full`}>
         <thead className={themeClasses.thead}>
           <tr>

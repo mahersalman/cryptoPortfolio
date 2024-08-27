@@ -2,8 +2,8 @@ import { getUrlString } from '../utils/urlUtils';
 
 // Service to fetch transactions from the network
 export const fetchTransactions = async (network, address) => {
-  const url = getUrlString(network, 'getAddressHistory', address); // Generate the URL for the request
-  console.log("url" , url);
+  const transactionUrl = getUrlString(network, 'getAddressHistory', address); // Generate the URL for the request
+  const url = `${transactionUrl}&limit=1000`; // Limit the number of transactions to 5
   const response = await fetch(url); // Make the HTTP request
 
   if (!response.ok) {
