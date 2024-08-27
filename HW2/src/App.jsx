@@ -16,7 +16,7 @@ function App() {
     isConnected: false,
   });
 
-  const handleConnect = (address, network, isConnected) => {
+  const handleStatus = (address, network, isConnected) => {
     setWallet({
       Address: address,
       Network: network,
@@ -34,16 +34,16 @@ function App() {
             }`}
           >
             <Web3ModalProvider>
-              <NavBar handleConnect={handleConnect} />
+              <NavBar handleConnect={handleStatus} />
               {wallet.isConnected ? (
                 <div>
-                  <WalletAddress address={wallet.Address} />
+                  <WalletAddress address={wallet.Address} handleDisconnect={handleStatus} />
                  {<WalletData wallet={wallet} />} 
                 </div>
               ) : (
                 <div>
                     <Banner/>  
-                    <SearchUsingAddress handleConnect={handleConnect}/>
+                    <SearchUsingAddress handleConnect={handleStatus}/>
                 </div>
 
               )}

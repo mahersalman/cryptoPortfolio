@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-
-function WalletAddress({ address }) {
+import DisconnectBtn from './DisconnectBtn';
+function WalletAddress({ address ,handleDisconnect}) {
     const [copied, setCopied] = useState(false);
 
     function copyAddress() {
@@ -13,6 +13,7 @@ function WalletAddress({ address }) {
     return (
         <div className="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg">
             <div className="flex justify-center items-center space-x-4 mb-4">
+                 <DisconnectBtn handleDisconnect={handleDisconnect} />
                 <h1 className="text-xl font-semibold text-gray-700">Wallet Address:</h1>
                 <p className="text-lg font-medium text-gray-900 bg-gray-100 py-2 px-4 rounded-md border border-gray-200">{address}</p>
                 <button
