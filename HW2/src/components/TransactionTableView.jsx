@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { formatDate } from '../utils/dateUtils';
+
+// Utility function to format a timestamp into a date and time JSX element
+function timestampToDate (timestamp) {
+  const date = new Date(timestamp * 1000); // Convert timestamp to milliseconds and create Date object
+  return (
+    <div className="flex flex-col">
+      <div>{date.toLocaleDateString()}</div>
+      <div className="text-gray-500">{date.toLocaleTimeString()}</div>
+    </div>
+  );
+};
 
 // Number of rows per page
 const ITEMS_PER_PAGE = 15;
@@ -41,7 +51,7 @@ const TransactionTableView = ({ transactions, themeClasses }) => {
     return (
       <tr key={index} className={themeClasses.tableRow}>
         <td className={themeClasses.tableCell}>
-          <div className={themeClasses.textLg}>{formatDate(item.timestamp)}</div>
+          <div className={themeClasses.textLg}>{timestampToDate(item.timestamp)}</div>
         </td>
         <td className={themeClasses.tableCell}>
           <div className={themeClasses.textLg} title={item.transactionHash}>
@@ -65,8 +75,13 @@ const TransactionTableView = ({ transactions, themeClasses }) => {
           <div className={themeClasses.textLg}>{item.type}</div>
         </td>
         <td className={themeClasses.tableCell}>
-          <div className="flex items-center justify-center">
-            <div className={themeClasses.textLg}>{item.tokenInfo.name}</div>
+          <div className="flex flex-col items-center justify-center">
+            <div className={themeClasses.textLg}>
+              {item.tokenInfo.name}
+            </div>
+            <div className='text-gray-500'>
+              {item.tokenInfo.symbol}
+            </div>
           </div>
         </td>
       </tr>
