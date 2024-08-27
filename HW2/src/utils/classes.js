@@ -21,8 +21,8 @@ export const darkTheme = {
     selectClass: "mt-2 w-full sm:w-48 p-2 sm:px-3 sm:py-2 rounded-md border border-gray-600 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-300",
 
     // NavBar-specific classes
-    navBarContainer: "shadow-md p-4 flex justify-between items-center bg-gray-800 relative",
-    navBarTitle: "text-xl font-bold text-white",
+    navBarContainer: "shadow-md p-4 flex justify-between items-center bg-gray-800 relative mb-4",
+    navBarTitle: "ml-10 text-2xl md:text-3xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-500 to-teal-400 animate-gradient-x-dark",
     navBarMenuButton: "text-2xl focus:outline-none",
     navBarDropDown: "absolute top-full left-0 right-0 bg-gray-800 shadow-lg p-4 mt-2 z-20 rounded-md md:hidden flex flex-col items-center",
 
@@ -81,7 +81,7 @@ export const lightTheme = {
 
     // NavBar-specific classes
     navBarContainer: "shadow-md p-4 flex justify-between items-center bg-white relative",
-    navBarTitle: "text-xl font-bold text-black",
+    navBarTitle: "ml-10 text-3xl md:text-4xl font-bold font-montserrat mb-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-yellow-500 to-blue-500 animate-gradient-x-light",
     navBarMenuButton: "text-2xl focus:outline-none",
     navBarDropDown: "absolute top-full left-0 right-0 bg-white shadow-lg p-4 mt-2 z-20 rounded-md md:hidden flex flex-col items-center",
 

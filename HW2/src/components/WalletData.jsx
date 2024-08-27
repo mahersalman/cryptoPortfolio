@@ -52,8 +52,7 @@ function WalletData({ wallet }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                //const url = getUrlString(wallet.Network, 'getAddressInfo', wallet.Address);
-                const url = getUrlString(wallet.Network, 'getAddressInfo', '0xA69babEF1cA67A37Ffaf7a485DfFF3382056e78C');
+                const url = getUrlString(wallet.Network, 'getAddressInfo', wallet.Address);
 
                 const response = await fetch(url);
                 if (!response.ok) {

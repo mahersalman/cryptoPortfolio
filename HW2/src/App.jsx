@@ -6,6 +6,8 @@ import { ThemeProvider,ThemeContext } from './components/ThemeContext';
 import Banner from './components/Banner';
 import NavBar from './components/NavBar'
 import WalletData from './components/WalletData';
+import SearchUsingAddress from './components/SearchUsingAddress';
+
 function App() {
   const [wallet, setWallet] = useState({
     Address: '',
@@ -37,7 +39,11 @@ function App() {
                  {<WalletData wallet={wallet} />} 
                 </div>
               ) : (
-                 <Banner/> 
+                <div>
+                    <Banner/>  
+                    <SearchUsingAddress handleConnect={handleConnect}/>
+                </div>
+
               )}
             </Web3ModalProvider>
           </div>
