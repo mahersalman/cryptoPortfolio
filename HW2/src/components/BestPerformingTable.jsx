@@ -78,6 +78,16 @@ function buildTableRow(symbol, data,index, themeClasses, selectedFilter){
                     {pnl.toFixed(1)}%
                 </div>
             </td>
+            <td className={themeClasses.tableCell}>
+                <div className="text-lg text-center">
+                    {data.balance.toFixed(2)}
+                </div>
+            </td>
+            <td className={themeClasses.tableCell}>
+                <div className="text-lg text-center">
+                {data.balanceInUsd.toFixed(2)}       
+                </div>
+            </td>
         </tr>
     );
 }
@@ -92,7 +102,7 @@ const BestPerformingTable = ({ tokens }) => {
     };
     const sortedData = sortTokensByPNL(tokens, selectedFilter);
     const topData = sortedData.slice(0, 10);
-    
+    console.log('topData',topData);
     return (
         <>
         <div className={themeClasses.filterContainer}>
@@ -115,6 +125,8 @@ const BestPerformingTable = ({ tokens }) => {
                             <th className={themeClasses.thClasses}>Name</th>
                             <th className={themeClasses.thClasses}>Price (USD)</th>
                             <th className={themeClasses.thClasses}>PNL</th>
+                            <th className={themeClasses.thClasses}>Balance</th>
+                            <th className={themeClasses.thClasses}>Balance(USD)</th>
                         </tr>
                     </thead>
                     <tbody className={themeClasses.tbody}>
@@ -130,3 +142,25 @@ const BestPerformingTable = ({ tokens }) => {
 
 export default BestPerformingTable;
 
+"FET",
+        {
+            "name": "Fetch.ai",
+            "decimals": 18,
+            "price": {
+                "rate": 1.35,
+                "diff": 2.28,
+                "diff7d": 47.28,
+                "ts": 1724786861,
+                "marketCapUsd": 3406938164.8105135,
+                "availableSupply": 0,
+                "volume24h": 583946803.4650438,
+                "volDiff1": 4.449719784493695,
+                "volDiff7": 169.16975456436393,
+                "volDiff30": -20.22925833806667,
+                "diff30d": 5.465700193334499,
+                "bid": 1.35,
+                "currency": "USD"
+            },
+            "balance": 90096.58783402208,
+            "balanceInUsd": 121630.39357592982
+        }

@@ -12,7 +12,7 @@ function timestampToDate (timestamp) {
 };
 
 // Number of rows per page
-const ITEMS_PER_PAGE = 15;
+const ITEMS_PER_PAGE = 10;
 
 const TransactionTableView = ({ transactions, themeClasses }) => {
   // State to manage current page
@@ -106,7 +106,7 @@ const TransactionTableView = ({ transactions, themeClasses }) => {
           {currentTransactions.map((transaction, index) => generateTableRow(transaction, index))}
         </tbody>
       </table>
-        <div class="flex items-center justify-center space-x-4 p-4 bg-gray-100 rounded-md shadow-md">
+        <div className="flex items-center justify-center space-x-4 p-4 bg-gray-100 rounded-md shadow-md">
           <button 
             onClick={prevPage} 
             disabled={currentPage === 1} 
