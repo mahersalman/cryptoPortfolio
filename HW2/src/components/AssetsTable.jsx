@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
-import { ThemeContext } from './ThemeContext'; // Import ThemeContext
+import { ThemeContext } from './ThemeContext';
 import TokenRow from './TokenRow';
-import { darkTheme, lightTheme } from "../utils/classes"; // Import theme objects
+import { darkTheme, lightTheme } from "../utils/classes";
 
 const AssetsTable = ({ tokens }) => {
-  const { theme } = useContext(ThemeContext); // Access the theme using useContext
+  const { theme } = useContext(ThemeContext);
   const themeClasses = theme === 'dark' ? darkTheme : lightTheme;
+
   return (
-    <div id="AssetsTable" className={themeClasses.tableContainer}>
-      <table className={themeClasses.table}>
+    <div id="AssetsTable" className={`${themeClasses.tableContainer} overflow-x-auto max-h-[calc(100vh-200px)] overflow-y-auto`}>
+      <table className={`${themeClasses.table} w-full`}>
         <thead className={themeClasses.thead}>
           <tr>
             <th className={themeClasses.thClasses}>Token Name</th>
@@ -20,7 +21,7 @@ const AssetsTable = ({ tokens }) => {
         </thead>
         <tbody className={themeClasses.tbody}>
           {tokens && tokens.map(([symbol, data]) => (
-            <TokenRow key = {symbol} symbol={symbol} data={data} theme={theme} /> 
+            <TokenRow key={symbol} symbol={symbol} data={data} theme={theme} />
           ))}
         </tbody>
       </table>

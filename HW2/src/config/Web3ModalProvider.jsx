@@ -1,7 +1,7 @@
 
 import { createWeb3Modal } from '@web3modal/wagmi/react'
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
-import { WagmiProvider ,useAccount } from 'wagmi'
+import { WagmiProvider } from 'wagmi'
 import { mainnet ,bsc  } from 'wagmi/chains'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
@@ -31,7 +31,10 @@ createWeb3Modal({
   wagmiConfig: config,
   projectId,
   enableAnalytics: true,
-  enableOnramp: true 
+  enableOnramp: true, 
+  themeVariables:{
+    '--w3m-accent': '#000000',  // Red color for the button
+  }
 })
 
 export function Web3ModalProvider({ children }) {

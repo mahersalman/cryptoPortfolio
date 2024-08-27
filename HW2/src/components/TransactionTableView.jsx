@@ -14,17 +14,17 @@ const TransactionTableView = ({ transactions, themeClasses }) => {
           <div className={themeClasses.textLg}>{formatDate(item.timestamp)}</div>
         </td>
         <td className={themeClasses.tableCell}>
-          <div className={themeClasses.textLg}>
+          <div className={themeClasses.textLg} title={item.transactionHash}>
             {item.transactionHash ? `${item.transactionHash.substring(0, 5)}...` : 'N/A'}
           </div>
         </td>
         <td className={themeClasses.tableCell}>
-          <div className={themeClasses.textLg}>
+          <div className={themeClasses.textLg} title={item.from} >
             {item.from ? `${item.from.substring(0, 6)}...${item.from.slice(-4)}` : 'N/A'}
           </div>
         </td>
         <td className={themeClasses.tableCell}>
-          <div className={themeClasses.textLg}>
+          <div className={themeClasses.textLg} title={item.to}>
             {item.to ? `${item.to.substring(0, 6)}...${item.to.slice(-4)}` : 'N/A'}
           </div>
         </td>
@@ -52,7 +52,7 @@ const TransactionTableView = ({ transactions, themeClasses }) => {
             <th className={`${themeClasses.thClasses} text-left`}>Tx Hash</th>
             <th className={`${themeClasses.thClasses} text-left`}>From</th>
             <th className={`${themeClasses.thClasses} text-left`}>To</th>
-            <th className={`${themeClasses.thClasses} text-right`}>Amount</th>
+            <th className={`${themeClasses.thClasses} text-left`}>Amount</th>
             <th className={`${themeClasses.thClasses} text-left`}>Type</th>
             <th className={`${themeClasses.thClasses} text-left`}>Token</th>
           </tr>

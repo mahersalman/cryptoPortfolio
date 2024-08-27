@@ -41,8 +41,15 @@ function MainData({address, tokens}) {
 
   return (
     <div className="flex space-x-4">
-        <div className="p-4 bg-gray-800 rounded-lg text-blue-50 w-64 h-80">
-            Balance (USD):<br/> ${totalBalance.toFixed(2)}
+        <div className="p-4 bg-gray-800 rounded-lg text-blue-50 w-64 h-80 flex items-center justify-center">
+          <div className="text-center">
+            <div className="font-semibold text-2xl mb-2">
+              Total Balance :
+            </div>
+            <div className="font-bold text-3xl">
+              $ {totalBalance.toFixed(2)}
+            </div>
+          </div>
         </div>
         <div className="p-4 bg-gray-800 rounded-lg text-blue-50 w-64 h-80">
             {<WalletFees address={address}/>}

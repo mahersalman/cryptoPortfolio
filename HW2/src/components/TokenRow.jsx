@@ -1,5 +1,4 @@
 import React from 'react';
-import CryptoIcon from './CryptoIcon';
 import { darkTheme, lightTheme } from '../utils/classes'; // Import theme classes
 
 // Presentational component for rendering a single row in the assets table
@@ -10,7 +9,6 @@ const TokenRow = ({ symbol, data, theme }) => {
     <tr className={themeClasses.tableRow}>
       <td className={`${themeClasses.tableCell} flex items-center justify-center`}>
         <div className="flex items-center justify-center gap-2">
-          {/* <CryptoIcon coinId={data.name} />  */}
           <div className="text-left">
             <div>{symbol}</div>
             <div className={themeClasses.tokenSymbolText}>{data.name}</div>

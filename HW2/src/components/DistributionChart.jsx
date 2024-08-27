@@ -1,84 +1,98 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { AgCharts } from 'ag-charts-react';
+import React, { useEffect, useRef } from 'react';
+import * as echarts from 'echarts';
 
 function DistributionChart({ tokens }) {
   const chartContainerRef = useRef(null);
-  const [options, setOptions] = useState(null);
 
   useEffect(() => {
-    const total = tokens.reduce((sum, token) => sum + token.balanceInUsd, 0);
+    if (!chartContainerRef.current) return;
+
+    const chart = echarts.init(chartContainerRef.current);
 
     const numFormatter = new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
     });
 
-    const chartOptions = {
-      container: chartContainerRef.current,
-      data: tokens,
-      title: {
-        text: "Token Distribution",
+    const option = {
+      tooltip: {
+        trigger: 'item',
+        formatter: ({ data }) => `${data.name}: ${numFormatter.format(data.value)}`,
+      },
+      legend: {
+        orient: 'vertical',
+        right: '5%',
+        top: 'center',
+        align: 'left',
+        itemWidth: 10,
+        itemHeight: 10,
+        textStyle: {
+          color: '#fff', // Legend text color
+        },
       },
       series: [
         {
-          type: "donut",
-          calloutLabelKey: "symbol",
-          angleKey: "balanceInUsd",
-          sectorLabelKey: "balanceInUsd",
-          calloutLabel: {
-            enabled: true,
+          name: 'USD Balance',
+          type: 'pie',
+          radius: ['40%', '70%'],
+          avoidLabelOverlap: false,
+          itemStyle: {
+            borderRadius: 10,
+            borderColor: '#fff',
+            borderWidth: 2,
           },
-          sectorLabel: {
-            formatter: ({ datum, sectorLabelKey }) => {
-              const value = datum[sectorLabelKey];
-              return numFormatter.format(value);
+          label: {
+            show: true,
+            position: 'outside',
+            formatter: ({ name, value }) => `${name}`,
+          },
+          emphasis: {
+            label: {
+              show: true,
+              fontSize: 30,
+              fontWeight: 'bold',
             },
           },
-          title: {
-            text: "USD Balance",
+          labelLine: {
+            show: true,
           },
-          innerRadiusRatio: 0.7,
-          innerLabels: [
-            {
-              text: numFormatter.format(total),
-              fontSize: 24,
-              color: 'white', // Adjusted color for the center text
-            },
-            {
-              text: "Total",
-              fontSize: 16,
-              color: 'gray', // Optional: Change color for secondary text
-              spacing: 10,
-            },
-          ],
-          tooltip: {
-            renderer: ({ datum, calloutLabelKey, title, sectorLabelKey }) => {
-              return {
-                title,
-                content: `${datum[calloutLabelKey]}: ${numFormatter.format(datum[sectorLabelKey])}`,
-              };
-            },
-          },
-          sectorSpacing: 5,
+          data: tokens.map(token => ({
+            value: token.balanceInUsd,
+            name: token.symbol,
+          })),
         },
       ],
-      legend: {
-        enabled: true,
-        position: 'right',
-        maxHeight: 400,
-        item: {
-          maxWidth: 200,
-        },
-        paging: {
-          enabled: false,
-        },
-      },
+      backgroundColor: '#1F2937', // Change this to your desired background color
     };
 
-    setOptions(chartOptions);
+    chart.setOption(option);
+
+    // Resize chart when window resizes
+    const handleResize = () => {
+      chart.resize();
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup on unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      chart.dispose();
+    };
   }, [tokens]);
 
-  return <AgCharts options={options} />
+  return (
+    <>
+      <div className="flex justify-center items-center font-bold text-2xl mb-4">
+        Tokens Distribution
+      </div>
+      <div
+        ref={chartContainerRef}
+        style={{ height: '80%', width: '100%' }} // Adjust height as needed
+        className="flex-1"
+      />
+    </>
+  );
 }
 
 export default DistributionChart;
