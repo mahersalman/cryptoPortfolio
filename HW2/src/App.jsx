@@ -7,6 +7,7 @@ import Banner from './components/Banner';
 import NavBar from './components/NavBar'
 import WalletData from './components/WalletData';
 import SearchUsingAddress from './components/SearchUsingAddress';
+import WalletAddress from './components/WalletAddress';
 
 function App() {
   const [wallet, setWallet] = useState({
@@ -36,6 +37,7 @@ function App() {
               <NavBar handleConnect={handleConnect} />
               {wallet.isConnected ? (
                 <div>
+                  <WalletAddress address={wallet.Address} />
                  {<WalletData wallet={wallet} />} 
                 </div>
               ) : (
