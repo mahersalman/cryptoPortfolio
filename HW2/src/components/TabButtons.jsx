@@ -1,10 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { ThemeContext } from './ThemeContext'; // Import ThemeContext
-import { darkTheme, lightTheme } from '../utils/classes'; // Import theme classes
+import { TabButtonsStyle } from '../styles/TabButtonsStyle'; // Import unified theme classes
 
 const TabButtons = ({ setActiveTab }) => {
-  const { theme } = useContext(ThemeContext); // Get the current theme
-  const themeClasses = theme === "dark" ? darkTheme : lightTheme; // Apply the correct theme classes
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+  //const { theme } = useContext(ThemeContext); // Get the current theme
 
   const [activeButton, setActiveButton] = useState('');
   const [tabOpen, setTabOpen] = useState({
@@ -35,12 +39,12 @@ const TabButtons = ({ setActiveTab }) => {
   };
 
   return (
-    <div className={themeClasses.tabContainer}>
+    <div className={TabButtonsStyle.tabContainer}>
       {['assets', 'transactions', 'BestPerforming'].map(tab => (
         <button
           key={tab}
           onClick={() => handleClick(tab)}
-          className={`${themeClasses.tabButton} ${activeButton === tab ? themeClasses.activeTab : themeClasses.inactiveTab}`}
+          className={`${TabButtonsStyle.tabButton} ${activeButton === tab ? TabButtonsStyle.activeTab : TabButtonsStyle.inactiveTab}`}
         >
           {tab.charAt(0).toUpperCase() + tab.slice(1)}
         </button>

@@ -2,11 +2,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import { ThemeContext } from './ThemeContext';
 import { fetchTransactions } from '../utils/transactionService';
 import TransactionTableView from './TransactionTableView';
-import { darkTheme, lightTheme } from '../utils/classes';
+import { themeClasses } from '../utils/classes';
 
 const TransactionTable = ({ wallet }) => {
-  const { theme } = useContext(ThemeContext);
-  const themeClasses = theme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useContext(ThemeContext); // Get the current theme
 
   const [transactions, setTransactions] = useState(null);
   const [loading, setLoading] = useState(true);

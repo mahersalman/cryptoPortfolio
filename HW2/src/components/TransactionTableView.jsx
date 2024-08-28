@@ -54,25 +54,25 @@ const TransactionTableView = ({ transactions, themeClasses }) => {
           <div className={themeClasses.textLg}>{timestampToDate(item.timestamp)}</div>
         </td>
         <td className={themeClasses.tableCell}>
-          <div className={themeClasses.textLg} title={item.transactionHash}>
+          <div className="text-lg" title={item.transactionHash}>
             {item.transactionHash ? `${item.transactionHash.substring(0, 5)}...` : 'N/A'}
           </div>
         </td>
         <td className={themeClasses.tableCell}>
-          <div className={themeClasses.textLg} title={item.from} >
+          <div className="text-lg" title={item.from} >
             {item.from ? `${item.from.substring(0, 6)}...${item.from.slice(-4)}` : 'N/A'}
           </div>
         </td>
         <td className={themeClasses.tableCell}>
-          <div className={themeClasses.textLg} title={item.to}>
+          <div className="text-lg" title={item.to}>
             {item.to ? `${item.to.substring(0, 6)}...${item.to.slice(-4)}` : 'N/A'}
           </div>
         </td>
         <td className={themeClasses.tableCell}>
-          <div className={themeClasses.textLg}>{tokenValue}</div>
+          <div className="text-lg">{tokenValue}</div>
         </td>
         <td className={themeClasses.tableCell}>
-          <div className={themeClasses.textLg}>{item.type}</div>
+          <div className="text-lg">{item.type}</div>
         </td>
         <td className={themeClasses.tableCell}>
           <div className="flex flex-col items-center justify-center">
@@ -106,25 +106,36 @@ const TransactionTableView = ({ transactions, themeClasses }) => {
           {currentTransactions.map((transaction, index) => generateTableRow(transaction, index))}
         </tbody>
       </table>
-        <div className="flex items-center justify-center space-x-4 p-4 bg-gray-100 rounded-md shadow-md">
-          <button 
-            onClick={prevPage} 
-            disabled={currentPage === 1} 
-            className={`px-4 py-2 font-semibold text-white rounded-lg ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}`}>
-            Previous
-          </button>
+      <div className="flex items-center justify-center space-x-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-md shadow-md">
+  <button 
+    onClick={prevPage} 
+    disabled={currentPage === 1} 
+    className={`px-4 py-2 font-semibold text-white rounded-lg ${
+      currentPage === 1 
+        ? 'bg-gray-300 dark:bg-gray-600 cursor-not-allowed' 
+        : 'bg-blue-500 hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-700'
+    }`}>
+    Previous
+  </button>
 
-          <span className="text-lg font-medium text-gray-700">
-            Page {currentPage} of {totalPages}
-          </span>
+  <span className="text-lg font-medium text-gray-700 dark:text-gray-300">
+    Page {currentPage} of {totalPages}
+  </span>
 
-          <button 
-            onClick={nextPage} 
-            disabled={currentPage === totalPages} 
-            className={`px-4 py-2 font-semibold text-white rounded-lg ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500'}`}>
-            Next
-          </button>
-        </div>
+  <button 
+    onClick={nextPage} 
+    disabled={currentPage === totalPages} 
+    className={`px-4 py-2 font-semibold text-white rounded-lg ${
+      currentPage === totalPages 
+        ? 'bg-gray-300 dark:bg-gray-600 cursor-not-allowed' 
+        : 'bg-blue-500 hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-700'
+    }`}>
+    Next
+  </button>
+</div>
+
+      
+        
     </div>
   );
 };

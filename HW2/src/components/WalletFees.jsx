@@ -1,12 +1,14 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { WalletFeesStyle } from '../styles/WalletFeesStyle'; // Adjust the path based on your project structure
+
 
 const ethApiKey = 'I3KJY4E13M9VBJWASHMS7FGGHREBR3D8VV';
 const bnbApiKey = 'BWHFXFN4IDYTRDVW8W3AV9E3Y96JQSJIJ7';
 
-async function fetchFees(address){
+async function fetchFees(address) {
     const ethFees = await getTotalFees('eth', address, ethApiKey);
     const bnbFees = await getTotalFees('bnb', address, bnbApiKey);
-    return [ethFees , bnbFees]
+    return [ethFees, bnbFees];
 }
 
 async function getTotalFees(network, address, apiKey) {
@@ -31,7 +33,7 @@ async function getTotalFees(network, address, apiKey) {
         console.error(`Error fetching fees for ${network}:`, error);
         return 0;
     }
-};
+}
 
 async function getBNB() {
     try {    
@@ -72,58 +74,57 @@ async function getETH() {
 
         return currentPrice;
     } catch (error) {
-        console.error('Error fetching BNB data:', error);
-        return 0 ;
+        console.error('Error fetching ETH data:', error);
+        return 0;
     }
 }
-function WalletFees ({address}) {
-    const [ethFees,setEthFees] = useState(0);
-    const [bnbFees,setBnbFees] = useState(0);
 
-    useEffect(()=>{
+function WalletFees({ address }) {
+    const [ethFees, setEthFees] = useState(0);
+    const [bnbFees, setBnbFees] = useState(0);
+
+    useEffect(() => {
         const fetchData = async () => {
             try {
                 const ethPrice = await getETH();
                 const bnbPrice = await getBNB();
                 const [ethFee, bnbFee] = await fetchFees(address);
-                console.log(ethPrice);
 
                 setEthFees(ethPrice * ethFee);
                 setBnbFees(bnbPrice * bnbFee);
             } catch (error) {
-                console.log("Error : " ,error);
+                console.log("Error: ", error);
             } 
         };
         if (address) {
             fetchData();
         }
-    },[address]);
+    }, [address]);
 
     return (
         <>
-        <div className="flex flex-col items-center justify-center h-32 p-4 bg-gray-800 rounded-lg text-blue-50 text-center">
-            <div className="text-xl font-bold mb-2">
-             Wallet Gas Fees
-            </div>
-            <div className="text-lg font-medium">
-            Total fees in USD: <span className="font-semibold text-2xl">${(ethFees + bnbFees).toFixed(2)}</span>
-            </div>
-        </div>
-        
-        <div className="grid grid-cols-2 gap-4 mt-4">
-            <div className="flex flex-col items-center justify-center h-24 p-4 bg-gray-700 rounded-lg text-blue-50 text-center">
-            <div className="text-md font-medium">ETH fees:</div>
-            <div className="text-lg font-semibold">${ethFees.toFixed(2)}</div>
+            <div className={WalletFeesStyle.container}>
+                <div className="text-xl font-bold mb-2">
+                    Wallet Gas Fees
+                </div>
+                <div className="text-lg font-medium">
+                    Total fees in USD: <span className="font-semibold text-2xl">${(ethFees + bnbFees).toFixed(2)}</span>
+                </div>
             </div>
             
-            <div className="flex flex-col items-center justify-center h-24 p-4 bg-gray-700 rounded-lg text-blue-50 text-center">
-            <div className="text-md font-medium">BNB fees:</div>
-            <div className="text-lg font-semibold">${bnbFees.toFixed(2)}</div>
+            <div className="grid grid-cols-2 gap-4 mt-4">
+                <div className={WalletFeesStyle.feeBox}>
+                    <div className="text-md font-medium">ETH fees:</div>
+                    <div className="text-lg font-semibold">${ethFees.toFixed(2)}</div>
+                </div>
+                
+                <div className={WalletFeesStyle.feeBox}>
+                    <div className="text-md font-medium">BNB fees:</div>
+                    <div className="text-lg font-semibold">${bnbFees.toFixed(2)}</div>
+                </div>
             </div>
-        </div>
         </>
-
     );
-};
+}
 
 export default WalletFees;

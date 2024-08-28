@@ -2,12 +2,12 @@ import React, { useEffect, useState, useContext } from "react";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import { ThemeContext } from "./ThemeContext"; // Import ThemeContext
-import { darkTheme, lightTheme } from "../utils/classes"; // Import theme objects
+import { CarouselStyle } from "../styles/CarouselStyle"; // Import unified theme classes
 import { fetchTrendingCoins, getAutoplayInterval } from '../utils/carouselUtils'; // Import utility functions
 
 // Component to display a carousel of trending cryptocurrencies
 const Carousel = () => {
-  const { theme } = useContext(ThemeContext); // Access theme from context
+  //const { theme } = useContext(ThemeContext); // Access theme from context
   const [trending, setTrending] = useState([]); // State to store trending coins data
   const [autoplayInterval, setAutoplayInterval] = useState(getAutoplayInterval(window.innerWidth)); // Default autoplay interval based on screen size
 
@@ -33,20 +33,18 @@ const Carousel = () => {
     return (
       <div
         key={coin.id}
-        className={`flex flex-col items-center justify-center space-x-0 sm:space-x-4 ${
-          theme === "dark" ? darkTheme.textWhite : lightTheme.textBlack
-        }`}
+        className={CarouselStyle.coinId}
       >
         <img
           src={coin?.image}
           alt={coin.name}
-          className="h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 lg:h-28 lg:w-28 mb-2 object-contain"
+          className={CarouselStyle.coinImage}
         />
         <span className="uppercase">
           {coin?.symbol.toUpperCase()} &nbsp;
           <span
             className={`font-semibold ${
-              profit ? darkTheme.textGreen : darkTheme.textRed
+              profit ? "text-green-500" : "text-red-500"
             }`}
           >
             {profit && "+"}

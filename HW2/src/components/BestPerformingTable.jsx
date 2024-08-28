@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { ThemeContext } from './ThemeContext'; // Import ThemeContext
-import { darkTheme, lightTheme } from '../utils/classes'; // Import theme objects
+import { BestPerformingTableStyle } from '../styles/BestPerformingTableStyle'; // Import unified theme classes
 
 // Utility function to get the PNL value based on the selected filter
 const getValue = (item, filter) => {
@@ -25,7 +25,6 @@ const sortTokensByPNL = (tokens, selectedFilter) => {
     });
 };
 
-
 function formatPrice(rate) {
     if (rate >= 1) {
         // For rates >= 1, limit to 2 decimal places
@@ -46,92 +45,91 @@ function formatPrice(rate) {
 }
 
 // Function to build a table row
-function buildTableRow(symbol, data,index, themeClasses, selectedFilter){ 
-    const pnl = getValue(data,selectedFilter);
+function buildTableRow(symbol, data, index, BestPerformingTableStyle, selectedFilter) { 
+    const pnl = getValue(data, selectedFilter);
 
     return (
-        <tr key={symbol} className={themeClasses.tableRowContainer}>
-            <td className={themeClasses.tableCell}>
+        <tr key={symbol} className={BestPerformingTableStyle.tableRowContainer}>
+            <td className={BestPerformingTableStyle.tableCell}>
                 <div className="text-lg">{index}</div>
             </td>
-            <td className={`${themeClasses.tableCell} flex`}>
+            <td className={`${BestPerformingTableStyle.tableCell} flex`}>
                 <div className="text-lg text-center">
                     <span className="font-normal">{data.name}</span>
-                    <div className="text-gray-500 text-sm font-light">
+                    <div className="text-gray-500 dark:text-gray-400 text-sm font-light">
                         {symbol}
                     </div>
                 </div>
             </td>
-            <td className={themeClasses.tableCell}>
+            <td className={BestPerformingTableStyle.tableCell}>
                 <div className="text-lg text-center">
                     {formatPrice(data.price.rate)}
                 </div>
             </td>
-            <td className={themeClasses.tableCell}>
-            <div className={`text-lg text-center ${
-                pnl === 0
-                    ? themeClasses.zeroText
-                    : pnl > 0
-                        ? themeClasses.positiveText
-                        : themeClasses.negativeText
-                        }`}>
+            <td className={BestPerformingTableStyle.tableCell}>
+                <div className={`text-lg text-center ${
+                    pnl === 0
+                        ? "text-gray-500 dark:text-gray-400"
+                        : pnl > 0
+                            ? "text-green-500 dark:text-green-400"
+                            : "text-red-500 dark:text-red-400"
+                    }`}>
                     {pnl.toFixed(1)}%
                 </div>
             </td>
-            <td className={themeClasses.tableCell}>
+            <td className={BestPerformingTableStyle.tableCell}>
                 <div className="text-lg text-center">
                     {data.balance.toFixed(2)}
                 </div>
             </td>
-            <td className={themeClasses.tableCell}>
+            <td className={BestPerformingTableStyle.tableCell}>
                 <div className="text-lg text-center">
-                {data.balanceInUsd.toFixed(2)}       
+                    {data.balanceInUsd.toFixed(2)}       
                 </div>
             </td>
         </tr>
     );
 }
+
 const BestPerformingTable = ({ tokens }) => {
-    const { theme } = useContext(ThemeContext); // Access the theme using useContext
+    const handleFilterChange = (event) => {setSelectedFilter(event.target.value);
+    };
+    
+    //const { theme } = useContext(ThemeContext); // Access the theme using useContext
     const [selectedFilter, setSelectedFilter] = useState('PNL_24h'); // State to manage the selected filter
 
-    const themeClasses = theme === 'dark' ? darkTheme : lightTheme;
-
-    const handleFilterChange = (event) => {
-        setSelectedFilter(event.target.value);
-    };
     const sortedData = sortTokensByPNL(tokens, selectedFilter);
     const topData = sortedData.slice(0, 10);
-    console.log('topData',topData);
+
     return (
         <>
-        <div className={themeClasses.filterContainer}>
+            <div className={BestPerformingTableStyle.filterContainer}>
                 <div className="text-lg font-semibold">Choose Criteria</div>
                 <select
                     value={selectedFilter}
                     onChange={handleFilterChange}
-                    className={themeClasses.selectClass}>
+                    className={BestPerformingTableStyle.selectClass}>
                     <option value="PNL_24h">24h PNL</option>
                     <option value="PNL_week">7d PNL</option>
                     <option value="PNL_month">30d PNL</option>
                 </select>
             </div>
 
-            <div className={themeClasses.tableContainer}>
-                <table className={themeClasses.table}>
-                    <thead className={themeClasses.thead}>
+            <div className={BestPerformingTableStyle.tableContainer}>
+                <table className={BestPerformingTableStyle.table}>
+                    <thead className={BestPerformingTableStyle.thead}>
                         <tr>
-                            <th className={themeClasses.thClasses}>Rank</th>
-                            <th className={themeClasses.thClasses}>Name</th>
-                            <th className={themeClasses.thClasses}>Price (USD)</th>
-                            <th className={themeClasses.thClasses}>PNL</th>
-                            <th className={themeClasses.thClasses}>Balance</th>
-                            <th className={themeClasses.thClasses}>Balance(USD)</th>
+                            <th className={BestPerformingTableStyle.th}>Rank</th>
+                            <th className={BestPerformingTableStyle.th}>Name</th>
+                            <th className={BestPerformingTableStyle.th}>Price (USD)</th>
+                            <th className={BestPerformingTableStyle.th}>PNL</th>
+                            <th className={BestPerformingTableStyle.th}>Balance</th>
+                            <th className={BestPerformingTableStyle.th}>Balance (USD)</th>
                         </tr>
                     </thead>
-                    <tbody className={themeClasses.tbody}>
-                       {topData.map(([symbol, data],index) => 
-                        buildTableRow(symbol, data,index+1, themeClasses, selectedFilter)
+                    <tbody className={BestPerformingTableStyle.tbody}>
+                        {topData.map(([symbol, data], index) =>
+                            buildTableRow(symbol, data, index + 1, BestPerformingTableStyle, selectedFilter)
                         )}
                     </tbody>
                 </table>
@@ -141,26 +139,3 @@ const BestPerformingTable = ({ tokens }) => {
 };
 
 export default BestPerformingTable;
-
-"FET",
-        {
-            "name": "Fetch.ai",
-            "decimals": 18,
-            "price": {
-                "rate": 1.35,
-                "diff": 2.28,
-                "diff7d": 47.28,
-                "ts": 1724786861,
-                "marketCapUsd": 3406938164.8105135,
-                "availableSupply": 0,
-                "volume24h": 583946803.4650438,
-                "volDiff1": 4.449719784493695,
-                "volDiff7": 169.16975456436393,
-                "volDiff30": -20.22925833806667,
-                "diff30d": 5.465700193334499,
-                "bid": 1.35,
-                "currency": "USD"
-            },
-            "balance": 90096.58783402208,
-            "balanceInUsd": 121630.39357592982
-        }
