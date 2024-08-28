@@ -22,7 +22,8 @@ export const darkTheme = {
 
     // NavBar-specific classes
     navBarContainer: "shadow-md p-4 flex justify-between items-center bg-gray-800 relative mb-4",
-    navBarTitle: "ml-10 text-2xl md:text-3xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-500 to-teal-400 animate-gradient-x-dark",
+    navBarTitle: "ml-10 text-3xl md:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-500 to-teal-400 animate-gradient-x-dark",
+
     navBarMenuButton: "text-2xl focus:outline-none",
     navBarDropDown: "absolute top-full left-0 right-0 bg-gray-800 shadow-lg p-4 mt-2 z-20 rounded-md md:hidden flex flex-col items-center",
 
