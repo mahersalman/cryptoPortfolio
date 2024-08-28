@@ -1,8 +1,8 @@
-import React , {useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import WalletFees from "./WalletFees";
 import DistributionChart from "./DistributionChart";
 
-function MainData({address, tokens}) {
+function MainData({ address, tokens }) {
   const [totalBalance, setTotalBalance] = useState(0);
   const [topBalances, setTopBalances] = useState([]);
 
@@ -40,28 +40,25 @@ function MainData({address, tokens}) {
   }, [tokens]);
 
   return (
-    <div className="flex space-x-4">
-        <div className="p-4 bg-gray-800 rounded-lg text-blue-50 w-64 h-80 flex items-center justify-center">
-          <div className="text-center">
-            <div className="font-semibold text-2xl mb-2">
-              Total Balance :
-            </div>
-            <div className="font-bold text-3xl">
-              $ {totalBalance.toFixed(2)}
-            </div>
+    <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+      <div className="p-4 bg-gray-800 rounded-lg text-blue-50 w-full sm:w-80 h-64 sm:h-72 flex items-center justify-center">
+        <div className="text-center">
+          <div className="font-semibold text-xl sm:text-2xl mb-2">
+            Total Balance:
+          </div>
+          <div className="font-bold text-2xl sm:text-3xl">
+            ${totalBalance.toFixed(2)}
           </div>
         </div>
-        <div className="p-4 bg-gray-800 rounded-lg text-blue-50 w-64 h-80">
-            {<WalletFees address={address}/>}
-        </div>
-        <div className="p-4 bg-gray-800 rounded-lg text-blue-50 flex-grow h-80">
-            <DistributionChart tokens={topBalances}/>
-        </div>
+      </div>
+      <div className="p-4 bg-gray-800 rounded-lg text-blue-50 w-full sm:w-96 h-64 sm:h-72">
+        <WalletFees address={address} />
+      </div>
+      <div className="p-4 bg-gray-800 rounded-lg text-blue-50 w-full sm:flex-grow h-64 sm:h-72">
+        <DistributionChart tokens={topBalances} />
+      </div>
     </div>
   );
 }
 
 export default MainData;
-
-
-

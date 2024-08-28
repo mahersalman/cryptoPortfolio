@@ -53,11 +53,12 @@ export const darkTheme = {
     header: "mb-5 text-4xl font-bold",
     bodyText: "mb-2",
 
-    // TabButtons-specific classes
-    tabContainer: "w-full flex items-center justify-center space-x-2 sm:space-x-4 mb-4",
-    tabButton: "tab-btn flex-shrink-0 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-lg font-bold border-b-4 transition duration-300",
-    activeTab: "text-yellow-400 border-yellow-400",
-    inactiveTab: "border-transparent hover:text-yellow-400 hover:border-yellow-400",
+    // TabButtons-specific classes for Dark Mode
+    tabContainer: "w-full flex items-center justify-center space-x-2 sm:space-x-4 mb-4 p-4 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border border-gray-700 rounded-lg shadow-lg",
+    tabButton: "tab-btn flex-shrink-0 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-lg font-bold text-gray-200 border-b-4 transition duration-300",
+    activeTab: "text-blue-400 border-blue-400",
+    inactiveTab: "border-transparent hover:text-blue-400 hover:border-blue-400",
+
 };
 
 export const lightTheme = {
@@ -112,9 +113,10 @@ export const lightTheme = {
     header: "mb-5 text-4xl font-bold",
     bodyText: "mb-2",
 
-    // TabButtons-specific classes
-    tabContainer: "w-full flex items-center justify-center space-x-2 sm:space-x-4 mb-4",
-    tabButton: "tab-btn flex-shrink-0 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-lg font-bold border-b-4 transition duration-300",
-    activeTab: "text-yellow-400 border-yellow-400",
-    inactiveTab: "border-transparent hover:text-yellow-400 hover:border-yellow-400",
+    // TabButtons-specific classes 
+    tabContainer: "w-full flex items-center justify-center space-x-2 sm:space-x-4 mb-4 p-4 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 border border-gray-300 rounded-lg shadow-md",
+    tabButton: "tab-btn flex-shrink-0 px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-lg font-bold text-gray-800 border-b-4 transition duration-300",
+    activeTab: "text-blue-600 border-blue-600",
+    inactiveTab: "border-transparent hover:text-blue-600 hover:border-blue-600",
+
 };
