@@ -33,7 +33,7 @@ createWeb3Modal({
   enableAnalytics: true,
   enableOnramp: true, 
   themeVariables:{
-    '--w3m-accent': '#000000',  // Red color for the button
+    //'--w3m-accent': '#000000',  // Red color for the button
   }
 })
 

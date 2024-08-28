@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { useAccount } from 'wagmi';
-export function WalletConnectComponent({ handleConnect }) {
+//import { connect } from '@wagmi/core'
+
+
+function WalletConnectComponent({ handleConnect }) {
   const { isConnected, address, chain } = useAccount();
 
   useEffect(() => {
@@ -13,9 +16,12 @@ export function WalletConnectComponent({ handleConnect }) {
   }, [isConnected, address, chain]); 
 
   return (
-    <div className="flex gap-5">
-      <w3m-button balance="hide" />
-      <w3m-network-button />
+    <div className="flex flex-col justify-center items-center bg-red-200 rounded-full w-auto h-auto ">
+      <div className="text-xl font-bold p-4">Connect Your Wallet</div>
+      <w3m-button balance="hide"/>
     </div>
   );
 }
+
+
+export default WalletConnectComponent;

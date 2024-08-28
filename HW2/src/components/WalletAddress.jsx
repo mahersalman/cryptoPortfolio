@@ -21,14 +21,9 @@ function WalletAddress({ address, handleDisconnect }) {
                     <div className="flex flex-col items-center sm:items-start w-full">
                         <h1 className="text-lg sm:text-xl font-semibold text-gray-700 dark:text-gray-300">
                             Wallet Address:
-                        </h1>
-                        <div className="flex items-center space-x-2 w-full">
-                            <p className="text-base sm:text-lg font-medium text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 py-2 px-4 rounded-md border border-gray-200 dark:border-gray-600 flex-grow">
-                                {address}
-                            </p>
                             <button
                                 onClick={copyAddress}
-                                className="flex items-center space-x-2 text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 focus:outline-none"
+                                className= "space-x-2 text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 focus:outline-none"
                                 title="Copy Address"
                             >
                                 {copied ? (
@@ -38,6 +33,11 @@ function WalletAddress({ address, handleDisconnect }) {
                                 )}
                                 <span>{copied ? 'Copied!' : 'Copy'}</span>
                             </button>
+                        </h1>
+                        <div className="flex items-center space-x-2 w-full">
+                            <p className="text-base sm:text-lg font-medium text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 py-2 px-4 rounded-md border border-gray-200 dark:border-gray-600 flex-grow">
+                                {address}
+                            </p>
                         </div>
                     </div>
                 </div>

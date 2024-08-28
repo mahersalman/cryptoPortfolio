@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import Carousel from "./Carousel";
 import { ThemeContext } from "./ThemeContext"; // Import ThemeContext
 import { darkTheme, lightTheme } from "../utils/classes"; // Import theme objects
-
-function Banner() {
+import WalletConnectComponent from "./WalletConnectComponent";
+import SearchUsingAddress from "./SearchUsingAddress";
+function Banner({ handleConnect }) {
   const { theme } = useContext(ThemeContext); // Access theme from context
   const themeClasses = theme === 'dark' ? darkTheme : lightTheme; // Choose the correct theme
 
@@ -24,6 +25,11 @@ function Banner() {
           <h3 className={themeClasses.subtitleTextColor}>
             Connect Your Hardware Wallet, Binance, Coinbase, MetaMask, Trust Wallet, And Any Other Crypto Platforms To CryptoTrack In Just A Few Clicks.
           </h3>
+          <div className="m-8 p-10 flex lg:flex-row sm:flex-col">
+            <WalletConnectComponent handleConnect={handleConnect} />
+            <SearchUsingAddress handleConnect={handleConnect}/>
+          </div>
+
         </div>
       </div>
     </div>

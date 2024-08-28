@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { WalletConnectComponent } from './WalletConnectComponent';
 import { ThemeContext } from './ThemeContext';
 import ThemeToggleButton from './ThemeToggleButton';
 import { darkTheme, lightTheme } from '../utils/classes'; // Import theme classes
 
-function NavBar({ handleConnect }) {
+function NavBar() {
   const { theme } = useContext(ThemeContext);
   const themeClasses = theme === 'dark' ? darkTheme : lightTheme; // Select the correct theme classes
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +29,6 @@ function NavBar({ handleConnect }) {
 
       {/* Menu items for larger screens */}
       <div className="hidden md:flex items-center space-x-4">
-        <WalletConnectComponent handleConnect={handleConnect} />
         <ThemeToggleButton />
       </div>
 
@@ -38,7 +36,6 @@ function NavBar({ handleConnect }) {
       {isOpen && (
         <div className={themeClasses.navBarDropDown}>
           <div className="w-full flex flex-col items-center space-y-4">
-            <WalletConnectComponent handleConnect={handleConnect} />
             <ThemeToggleButton />
           </div>
         </div>

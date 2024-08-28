@@ -6,7 +6,6 @@ import { ThemeProvider,ThemeContext } from './components/ThemeContext';
 import Banner from './components/Banner';
 import NavBar from './components/NavBar'
 import WalletData from './components/WalletData';
-import SearchUsingAddress from './components/SearchUsingAddress';
 import WalletAddress from './components/WalletAddress';
 
 function App() {
@@ -34,7 +33,7 @@ function App() {
             }`}
           >
             <Web3ModalProvider>
-              <NavBar handleConnect={handleStatus} />
+              <NavBar/>
               {wallet.isConnected ? (
                 <div>
                   <WalletAddress address={wallet.Address} handleDisconnect={handleStatus} />
@@ -42,8 +41,7 @@ function App() {
                 </div>
               ) : (
                 <div>
-                    <Banner/>  
-                    <SearchUsingAddress handleConnect={handleStatus}/>
+                    <Banner handleConnect={handleStatus}/>  
                 </div>
 
               )}
