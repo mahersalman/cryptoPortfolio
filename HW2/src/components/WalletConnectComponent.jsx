@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useAccount } from 'wagmi';
-//import { connect } from '@wagmi/core'
 
 
 function WalletConnectComponent({ handleConnect }) {

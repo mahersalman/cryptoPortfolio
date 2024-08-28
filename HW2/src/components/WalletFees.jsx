@@ -89,6 +89,7 @@ function WalletFees({ address }) {
                 const ethPrice = await getETH();
                 const bnbPrice = await getBNB();
                 const [ethFee, bnbFee] = await fetchFees(address);
+                console.log(ethPrice);
 
                 setEthFees(ethPrice * ethFee);
                 setBnbFees(bnbPrice * bnbFee);
