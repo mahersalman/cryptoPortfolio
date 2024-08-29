@@ -26,7 +26,7 @@ function Banner({ handleConnect }) {
             <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-10">
               Choose Way To Connect 
             </h1>
-            <div className="flex flex-col lg:flex-row lg:gap-8">
+            <div className="flex flex-col lg:flex-row lg:gap-8 gap-4">
               <div className="flex flex-col justify-center items-center bg-white dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-lg p-6  w-full hover:bg-gray-50 dark:hover:bg-gray-600 shadow-md transition duration-300">
                 <WalletConnectComponent handleConnect={handleConnect} />
               </div>

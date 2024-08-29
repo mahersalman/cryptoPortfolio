@@ -34,10 +34,11 @@ function WalletAddress({ address, handleDisconnect }) {
                     </button>
                 </h1>
                 <div className="flex items-center space-x-2 w-full">
-                    <p className="text-base sm:text-lg font-medium text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 py-2 px-4 rounded-md border border-gray-200 dark:border-gray-600 flex-grow">
+                    <p className="text-sm sm:text-base md:text-lg font-medium text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 py-2 px-4 rounded-md border border-gray-200 dark:border-gray-600 w-full">
                         {address}
                     </p>
                 </div>
+
             </div>
         </div>
         </>
