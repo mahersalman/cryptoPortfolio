@@ -3,12 +3,6 @@ import { fetchTransactions } from '../utils/transactionService';
 import { formatTimestamp, generateTableRow, handlePageChange } from '../utils/transactionUtils';
 import { TransactionTableStyles } from '../styles/TransactionTableStyles';
 
-/**
- * TransactionTable component fetches and displays transactions for a given wallet.
- * @param {Object} props - Component props.
- * @param {Object} props.wallet - Wallet object containing network and address.
- * @returns {JSX.Element} The rendered TransactionTable component.
- */
 const TransactionTable = ({ wallet }) => {
   const [transactions, setTransactions] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -62,13 +56,21 @@ const TransactionTable = ({ wallet }) => {
         </tbody>
       </table>
       <div className={TransactionTableStyles.pagination}>
-        <button onClick={prevPage} disabled={currentPage === 1} className={TransactionTableStyles.button}>
+        <button
+          onClick={prevPage}
+          disabled={currentPage === 1}
+          className={`${TransactionTableStyles.button} ${currentPage === 1 ? TransactionTableStyles.disabledButton : TransactionTableStyles.enabledButton}`}
+        >
           Previous
         </button>
         <span className={TransactionTableStyles.pageInfo}>
           Page {currentPage} of {totalPages}
         </span>
-        <button onClick={nextPage} disabled={currentPage === totalPages} className={TransactionTableStyles.button}>
+        <button
+          onClick={nextPage}
+          disabled={currentPage === totalPages}
+          className={`${TransactionTableStyles.button} ${currentPage === totalPages ? TransactionTableStyles.disabledButton : TransactionTableStyles.enabledButton}`}
+        >
           Next
         </button>
       </div>
