@@ -1,10 +1,23 @@
-import React, { useContext } from 'react';
-import { ThemeContext } from './ThemeContext';
+import React, { useEffect, useState } from 'react';
 import TokenRow from './TokenRow';
 import { AssestsTableStyle } from "../styles/AssetsTableStyle"; // Import unified theme classes
+import { getImages } from '../utils/coinGecko';
+
 
 const AssetsTable = ({ tokens }) => {
-  const { theme } = useContext(ThemeContext); // Assuming this handles dark/light mode toggle
+  const [iconsMap, setIconsMap] = useState({});
+
+  useEffect(() => {
+    const fetchIcons = async () => {
+      if (tokens && tokens.length > 0) {
+        const tokenNames = tokens.map(([symbol, data]) => data.name);
+        const images = await getImages(tokenNames);
+        setIconsMap(images);
+      }
+    };
+
+    fetchIcons();
+  }, [tokens]);
 
   return (
     <div id="AssetsTable" className={`${AssestsTableStyle.tableContainer} overflow-x-auto max-h-[calc(50vh)] overflow-y-auto`}>
@@ -20,7 +33,7 @@ const AssetsTable = ({ tokens }) => {
         </thead>
         <tbody className={AssestsTableStyle.tbody}>
           {tokens && tokens.map(([symbol, data]) => (
-            <TokenRow key={symbol} symbol={symbol} data={data} />
+            <TokenRow key={symbol} symbol={symbol} data={data} iconsMap={iconsMap} />
           ))}
         </tbody>
       </table>

@@ -1,15 +1,25 @@
 import React from 'react';
-import { TokenRowStyle } from '../styles/TokenRowStyle'; // Import unified theme classes
+import { TokenRowStyle } from '../styles/TokenRowStyle'; 
 
-// Presentational component for rendering a single row in the assets table
-const TokenRow = ({ symbol, data }) => {
+const TokenRow = ({ symbol, data, iconsMap }) => {
+  const iconUrl = iconsMap[data.name.toLowerCase().replace(/\s+/g, '-')];
+
   return (
     <tr className={TokenRowStyle.tableRow}>
-      <td className={`${TokenRowStyle.tableCell} flex items-center justify-center`}>
-        <div className="flex items-center justify-center gap-2">
-          <div className="text-left">
-            <div>{symbol}</div>
-            <div className={TokenRowStyle.tokenSymbolText}>{data.name}</div>
+      <td className={TokenRowStyle.tableCell}>
+        <div className="flex items-center justify-center space-x-3">
+          {/* First div: icon */}
+          <div className="flex-shrink-0 flex items-center justify-center">
+            {iconUrl ? (
+              <img src={iconUrl} alt={`${data.name} icon`} className="w-8 h-8" />
+            ) : (
+              <div className="w-8 h-8" />
+            )}
+          </div>
+          {/* Second div: token name and symbol */}
+          <div className="flex flex-col justify-center">
+            <div className="font-bold">{symbol}</div>
+            <div className={`${TokenRowStyle.tokenSymbolText} text-sm`}>{data.name}</div>
           </div>
         </div>
       </td>
@@ -24,7 +34,6 @@ const TokenRow = ({ symbol, data }) => {
       <td className={TokenRowStyle.tableCell}>
         <div>{data.price.rate}$</div>
       </td>
-
       <td className={TokenRowStyle.tableCell}>
         <div>{data.balanceInUsd.toFixed(2)}$</div>
       </td>
