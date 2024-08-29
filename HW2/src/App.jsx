@@ -8,6 +8,7 @@ import NavBar from './components/NavBar'
 import WalletData from './components/WalletData';
 import WalletAddress from './components/WalletAddress';
 import ChooseNetwork from './components/ChooseNetwork';
+import DisconnectBtn from './components/DisconnectBtn';
 
 function App() {
   const [wallet, setWallet] = useState({
@@ -43,7 +44,8 @@ function App() {
               <NavBar/>
               {wallet.isConnected ? (
                 <div>
-                  <div className="flex flex-col lg:gap-20 sm:flex-row items-center p-4  dark:bg-gray-800 rounded-lg shadow-2xl dark:text-gray-50 max-w-fit mx-auto ">
+                  <div className="flex flex-col md:flex-col lg:flex-row lg:space-x-6 space-y-4 lg:space-y-0 items-center p-4 dark:bg-gray-800 rounded-lg shadow-2xl dark:text-gray-50 max-w-fit mx-auto">
+                    <DisconnectBtn handleDisconnect={handleStatus} />
                     <WalletAddress address={wallet.Address} handleDisconnect={handleStatus} />
                     <ChooseNetwork handleChangeNetwork={handleChangeNetwork}/>
                   </div>
