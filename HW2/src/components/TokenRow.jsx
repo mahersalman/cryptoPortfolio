@@ -32,7 +32,7 @@ const TokenRow = ({ symbol, data, iconsMap }) => {
         </div>
       </td>
       <td className={TokenRowStyle.tableCell}>
-        <div>{data.price.rate}$</div>
+        <div>{data.price.rate.toFixed(3)}$</div>
       </td>
       <td className={TokenRowStyle.tableCell}>
         <div>{data.balanceInUsd.toFixed(2)}$</div>

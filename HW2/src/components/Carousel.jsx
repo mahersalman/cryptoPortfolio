@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
-import { ThemeContext } from "./ThemeContext"; // Import ThemeContext
 import { CarouselStyle } from "../styles/CarouselStyle"; // Import unified theme classes
 import { fetchTrendingCoins, getAutoplayInterval } from '../utils/carouselUtils'; // Import utility functions
 
