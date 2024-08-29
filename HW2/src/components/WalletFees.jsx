@@ -113,7 +113,7 @@ function WalletFees({ address }) {
                 </div>
             </div>
             
-            <div className="grid grid-cols-2 gap-4 mt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                 <div className={WalletFeesStyle.feeBox}>
                     <div className="text-md font-medium">ETH fees:</div>
                     <div className="text-lg font-semibold">${ethFees.toFixed(2)}</div>

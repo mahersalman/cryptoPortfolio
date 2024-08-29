@@ -70,18 +70,24 @@ function WalletData({ wallet }) {
             fetchData();
         }
     }, [wallet.Address, wallet.Network]);
-    
+
     return (
         <>
             <div className=''>
                 <MainData address={wallet.Address} tokens = {tokens}/>
             </div>
-            <div>
+            <div className="mt-4">
+                {/* Title or explanation for the tabs */}
+                <h2 className="pl-4 text-base font-medium text-gray-700 mb-2">
+                    Choose an option below to view detailed information:
+                </h2>
+                <p className="pl-4 text-sm text-gray-500 mb-4">
+                    Use the tabs to switch between viewing your assets, transaction history, and the best performing tokens in your wallet.
+                </p>
                 <TabButtons setActiveTab={setActiveTab} />
                 {activeTab === 'assets' && <AssetsTable tokens={tokens} />}
                 {activeTab === 'transactions' && <TransactionTable wallet={wallet} />}
                 {activeTab === 'BestPerforming' && <BestPerformingTable tokens={tokens} />}
-
             </div>
         </>
     );  

@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { ThemeContext } from './ThemeContext';
+import React, { useState, useEffect } from 'react';
 import { fetchTransactions } from '../utils/transactionService';
 import TransactionTableView from './TransactionTableView';
 import { themeClasses } from '../utils/classes';
 
 const TransactionTable = ({ wallet }) => {
-  const { theme } = useContext(ThemeContext); // Get the current theme
 
   const [transactions, setTransactions] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -25,7 +23,7 @@ const TransactionTable = ({ wallet }) => {
     getTransactions();
   }, [wallet.Network, wallet.Address]);
 
-  if (loading) return <div className="flex justify-center items-center text-9xl p-4">Loading...</div>;
+  if (loading) return <div className="flex justify-center items-center text-5xl p-4">Loading...</div>;
 
   return <TransactionTableView transactions={transactions} themeClasses={themeClasses} />;
 };
