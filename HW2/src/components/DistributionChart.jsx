@@ -14,17 +14,6 @@ function DistributionChart({ tokens }) {
         trigger: 'item',
         formatter: ({ data }) => `${data.name}: ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data.value)}`,
       },
-      legend: {
-        orient: 'vertical',
-        right: '5%',
-        top: 'center',
-        align: 'left',
-        itemWidth: 10,
-        itemHeight: 10,
-        textStyle: {
-          color: 'inherit', // Inherit text color based on the applied theme
-        },
-      },
       series: [
         {
           name: 'USD Balance',
@@ -39,8 +28,10 @@ function DistributionChart({ tokens }) {
           label: {
             show: true,
             position: 'outside',
-            formatter: '{b}', // Only show the name of the token
+            formatter: '{b}:({d}%)', // Show name, value, and percentage
             color: 'inherit', // Inherit text color based on the applied theme
+            fontSize: 14, // Adjust font size for the chart labels
+            fontWeight: 'bold', // Make chart labels bold
           },
           emphasis: {
             label: {
@@ -86,7 +77,7 @@ function DistributionChart({ tokens }) {
       </div>
       <div
         ref={chartContainerRef}
-        className="flex-1 bg-white dark:bg-gray-800 p-6 rounded-lg"
+        className="bg-white dark:bg-gray-800 p-6 rounded-lg"
         style={{ height: '80%', width: '100%' }}
       />
     </>
