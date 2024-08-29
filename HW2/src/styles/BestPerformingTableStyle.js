@@ -8,6 +8,5 @@ export const BestPerformingTableStyle = {
    th: "px-4 py-2 text-center text-xs font-medium uppercase tracking-wider border-b border-gray-300 dark:border-gray-600",
    tbody: "bg-gray-100 dark:bg-gray-800 text-black dark:text-white divide-y divide-gray-300 dark:divide-gray-700",
    filterContainer: "flex flex-col items-center justify-center p-4 rounded-md shadow-sm bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-white w-full sm:w-64 mx-auto",
-
-
+   
 };

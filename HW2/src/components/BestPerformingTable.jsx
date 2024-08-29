@@ -65,9 +65,9 @@ const buildTableRow = (symbol, data, index, BestPerformingTableStyle, selectedFi
             )}
           </div>
           {/* Name and symbol */}
-          <div className="flex flex-col justify-center items-center">
-            <div className="font-bold">{symbol}</div>
-            <div className={`${BestPerformingTableStyle.tokenSymbolText} text-sm`}>{data.name}</div>
+          <div className="flex flex-col items-start">
+            <div className={`${BestPerformingTableStyle.tokenSymbolText} text-sm font-bold`}>{data.name}</div>
+            <div className="text-left">{symbol}</div>
           </div>
         </div>
       </td>

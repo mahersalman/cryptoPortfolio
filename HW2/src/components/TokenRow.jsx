@@ -7,9 +7,9 @@ const TokenRow = ({ symbol, data, iconsMap }) => {
   return (
     <tr className={TokenRowStyle.tableRow}>
       <td className={TokenRowStyle.tableCell}>
-        <div className="flex items-center justify-center space-x-3">
+        <div className="pl-[30%] flex items-center space-x-3">
           {/* First div: icon */}
-          <div className="flex-shrink-0 flex items-center justify-center">
+          <div className="flex-shrink-0">
             {iconUrl ? (
               <img src={iconUrl} alt={`${data.name} icon`} className="w-8 h-8" />
             ) : (
@@ -17,9 +17,9 @@ const TokenRow = ({ symbol, data, iconsMap }) => {
             )}
           </div>
           {/* Second div: token name and symbol */}
-          <div className="flex flex-col justify-center">
-            <div className="font-bold">{symbol}</div>
-            <div className={`${TokenRowStyle.tokenSymbolText} text-sm`}>{data.name}</div>
+          <div className="flex flex-col items-start">
+            <div className={`${TokenRowStyle.tokenSymbolText} font-bold`}>{data.name}</div>
+            <div className="text-sm">{symbol}</div>
           </div>
         </div>
       </td>
