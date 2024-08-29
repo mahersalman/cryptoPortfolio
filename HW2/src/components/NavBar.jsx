@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ThemeToggleButton from './ThemeToggleButton';
 import { navBarStyle } from '../styles/NavBarStyle'; 
 
@@ -7,12 +7,10 @@ import { navBarStyle } from '../styles/NavBarStyle';
  * @returns {JSX.Element} The rendered NavBar component.
  */
 function NavBar() {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
     <div className={navBarStyle.navBarContainer}>
       <div className={navBarStyle.navBarTitle}>CryptoTrack</div>
-            <div><ThemeToggleButton /></div>
+      <div><ThemeToggleButton /></div>
     </div>
   );
 }
