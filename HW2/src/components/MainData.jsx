@@ -42,7 +42,7 @@ function MainData({ address, tokens }) {
     return (
       <div className="p-6 sm:p-8 lg:p-12">
         <div className="flex flex-col md:grid md:grid-cols-2 lg:flex lg:flex-row gap-4 lg:gap-6">
-          <div className="p-4 bg-gradient-to-r from-blue-100 to-blue-200 dark:bg-gradient-to-r dark:from-gray-700 dark:to-gray-800 rounded-lg text-gray-900 dark:text-blue-50 w-full h-64 sm:h-72 flex items-center justify-center border border-blue-300 dark:border-gray-600 shadow-lg">
+          <div className="p-4 bg-gradient-to-r from-blue-100 to-blue-200 dark:bg-gradient-to-r dark:from-gray-700 dark:to-gray-800 rounded-lg text-gray-900 dark:text-blue-50 lg:w-[25%] h-64 sm:h-72 flex items-center justify-center border border-blue-300 dark:border-gray-600 shadow-lg">
             <div className="text-center">
               <div className="font-semibold text-xl sm:text-2xl mb-2">
                 Total Balance:

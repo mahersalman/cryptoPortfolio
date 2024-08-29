@@ -36,7 +36,7 @@ function DistributionChart({ tokens }) {
           emphasis: {
             label: {
               show: true,
-              fontSize: '1.875rem', // 30px
+              fontSize: '1rem', // 30px
               fontWeight: 'bold',
               color: 'inherit', // Inherit emphasis label color based on the applied theme
             },
