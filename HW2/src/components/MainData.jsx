@@ -39,28 +39,30 @@ function MainData({ address, tokens }) {
     }
   }, [tokens]);
 
-  return (
-    <div className="p-6 sm:p-8 lg:p-12">
-      <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-        <div className="p-4 bg-white dark:bg-gray-800 rounded-lg text-gray-900 dark:text-blue-50 w-full sm:w-2/12 h-64 sm:h-72 flex items-center justify-center border border-gray-300 dark:border-gray-600">
-          <div className="text-center">
-            <div className="font-semibold text-xl sm:text-2xl mb-2">
-              Total Balance:
-            </div>
-            <div className="font-bold text-2xl sm:text-3xl">
-              ${totalBalance.toFixed(2)}
+    return (
+      <div className="p-6 sm:p-8 lg:p-12">
+        <div className="flex flex-col md:grid md:grid-cols-2 lg:flex lg:flex-row gap-4 lg:gap-6">
+          <div className="p-4 bg-gradient-to-r from-blue-100 to-blue-200 dark:bg-gradient-to-r dark:from-gray-700 dark:to-gray-800 rounded-lg text-gray-900 dark:text-blue-50 w-full h-64 sm:h-72 flex items-center justify-center border border-blue-300 dark:border-gray-600 shadow-lg">
+            <div className="text-center">
+              <div className="font-semibold text-xl sm:text-2xl mb-2">
+                Total Balance:
+              </div>
+              <div className="font-bold text-2xl sm:text-3xl">
+                ${totalBalance.toFixed(2)}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="p-4 bg-white dark:bg-gray-800 rounded-lg text-gray-900  dark:text-blue-50 w-full sm:w-3/12  border border-gray-300 dark:border-gray-600">
-          <WalletFees address={address} />
-        </div>
-        <div className="p-4 bg-white dark:bg-gray-800 rounded-lg text-gray-900 dark:text-blue-50 w-full sm:w-7/12 h-64 sm:h-72 border border-gray-300 dark:border-gray-600">
-          <DistributionChart tokens={topBalances} />
+          <div className="p-4 bg-gradient-to-r from-green-100 to-green-200 dark:bg-gradient-to-r dark:from-gray-700 dark:to-gray-800 rounded-lg text-gray-900 dark:text-blue-50 w-full border border-green-300 dark:border-gray-600 shadow-lg">
+            <WalletFees address={address} />
+          </div>
+          <div className="p-4 bg-gradient-to-r from-purple-100 to-purple-200 dark:bg-gradient-to-r dark:from-gray-700 dark:to-gray-800 rounded-lg text-gray-900 dark:text-blue-50 w-full col-span-2 lg:col-span-1 h-64 sm:h-72 border border-purple-300 dark:border-gray-600 shadow-lg">
+            <DistributionChart tokens={topBalances} />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  
+  
 }
 
 export default MainData;
