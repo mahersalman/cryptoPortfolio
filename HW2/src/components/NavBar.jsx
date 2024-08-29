@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { ThemeContext } from './ThemeContext';
 import ThemeToggleButton from './ThemeToggleButton';
-import { navBarStyle } from '../styles/NavBarStyle'; // Import unified theme classes
+import { navBarStyle } from '../styles/NavBarStyle'; 
 
+/**
+ * NavBar component displays the navigation bar with the app title and a theme toggle button.
+ * @returns {JSX.Element} The rendered NavBar component.
+ */
 function NavBar() {
-  //const { theme } = useContext(ThemeContext); // Assuming this handles dark/light mode toggle
   const [isOpen, setIsOpen] = useState(false);
 
   return (

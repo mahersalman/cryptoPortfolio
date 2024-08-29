@@ -1,69 +1,29 @@
 import React, { useEffect, useRef } from 'react';
+import { getChartOptions } from '../utils/DistributionChartUtils'; // Import the chart options function
 import * as echarts from 'echarts';
 
+/**
+ * DistributionChart component displays a pie chart representing token distribution.
+ * @param {Object} props - Component props.
+ * @param {Array} props.tokens - Array of token objects containing balance and symbol.
+ * @returns {JSX.Element} The rendered DistributionChart component.
+ */
 function DistributionChart({ tokens }) {
   const chartContainerRef = useRef(null);
 
+    /**
+   * Initializes the ECharts instance and sets up the chart options.
+   * Updates the chart when the tokens data changes and handles window resizing.
+   */
   useEffect(() => {
     if (!chartContainerRef.current) return;
-
     const chart = echarts.init(chartContainerRef.current);
-
-    const option = {
-      tooltip: {
-        trigger: 'item',
-        formatter: ({ data }) => `${data.name}: ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data.value)}`,
-      },
-      series: [
-        {
-          name: 'USD Balance',
-          type: 'pie',
-          radius: ['40%', '70%'],
-          avoidLabelOverlap: false,
-          itemStyle: {
-            borderRadius: 10,
-            borderColor: '#fff',
-            borderWidth: 2,
-          },
-          label: {
-            show: true,
-            position: 'outside',
-            formatter: '{b}:({d}%)', // Show name, value, and percentage
-            color: 'inherit', // Inherit text color based on the applied theme
-            fontSize: 14, // Adjust font size for the chart labels
-            fontWeight: 'bold', // Make chart labels bold
-          },
-          emphasis: {
-            label: {
-              show: true,
-              fontSize: '1rem', // 30px
-              fontWeight: 'bold',
-              color: 'inherit', // Inherit emphasis label color based on the applied theme
-            },
-          },
-          labelLine: {
-            show: true,
-            lineStyle: {
-              color: 'inherit', // Inherit label line color based on the applied theme
-            },
-          },
-          data: tokens.map(token => ({
-            value: token.balanceInUsd,
-            name: token.symbol,
-          })),
-        },
-      ],
-      backgroundColor: 'transparent', // Make background transparent and rely on container styling
-    };
-
+    const option = getChartOptions(tokens);
     chart.setOption(option);
-
     const handleResize = () => {
       chart.resize();
     };
-
     window.addEventListener('resize', handleResize);
-
     return () => {
       window.removeEventListener('resize', handleResize);
       chart.dispose();

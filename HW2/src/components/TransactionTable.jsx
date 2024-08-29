@@ -3,6 +3,12 @@ import { fetchTransactions } from '../utils/transactionService';
 import TransactionTableView from './TransactionTableView';
 import { themeClasses } from '../utils/classes';
 
+/**
+ * TransactionTable component fetches and displays transactions for a given wallet.
+ * @param {Object} props - Component props.
+ * @param {Object} props.wallet - Wallet object containing network and address.
+ * @returns {JSX.Element} The rendered TransactionTable component.
+ */
 const TransactionTable = ({ wallet }) => {
 
   const [transactions, setTransactions] = useState(null);

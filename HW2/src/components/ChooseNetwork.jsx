@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
+import { Menu } from '@headlessui/react';
 import ethIcon from '../icon/eth.png';
 import bnbIcon from '../icon/bnb.png';
-import { Menu } from '@headlessui/react';
+import { ChooseNetworkStyle } from '../styles/ChooseNetworkStyle'; 
 
+/**
+ * Array of network options for the selection menu.
+ * Each option includes a value, label, and icon.
+ * @type {Array<{ value: string, label: string, icon: string }>}
+ */
 const options = [
     { value: 'Ethereum', label: 'Ethereum', icon: ethIcon },
     { value: 'BNB Smart Chain', label: 'BNB Smart Chain', icon: bnbIcon },
 ];
 
+/**
+ * ChooseNetwork component provides a dropdown menu for selecting a blockchain network.
+ * @param {Object} props - The props for the component.
+ * @param {Function} props.handleChangeNetwork - Function to handle network change events.
+ * @returns {JSX.Element} The rendered ChooseNetwork component.
+ */
 function ChooseNetwork({ handleChangeNetwork }) {
     const [selectedNetwork, setSelectedNetwork] = useState('Ethereum');
 
@@ -17,22 +29,22 @@ function ChooseNetwork({ handleChangeNetwork }) {
     };
 
     return (
-        <div className="relative">
-            <div className="flex justify-center font-semibold text-xl dark:text-white">
-                Network : 
+        <div className={ChooseNetworkStyle.container}>
+            <div className={ChooseNetworkStyle.label}>
+                Network :
             </div>
-            <Menu as="div" className="relative w-56">
-                <Menu.Button className="flex items-center justify-between rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2 w-full max-w-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400">
-                    <div className="flex items-center">
+            <Menu as="div" className={ChooseNetworkStyle.menuContainer}>
+                <Menu.Button className={ChooseNetworkStyle.button}>
+                    <div className={ChooseNetworkStyle.buttonContent}>
                         <img
                             src={options.find(net => net.label === selectedNetwork)?.icon}
                             alt={selectedNetwork}
-                            className="w-6 h-6 mr-2"
+                            className={ChooseNetworkStyle.icon}
                         />
                         {selectedNetwork}
                     </div>
                     <svg
-                        className="w-4 h-4 ml-2"
+                        className={ChooseNetworkStyle.arrowIcon}
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
                         fill="currentColor"
@@ -45,19 +57,19 @@ function ChooseNetwork({ handleChangeNetwork }) {
                         />
                     </svg>
                 </Menu.Button>
-                <Menu.Items className="absolute z-10 mt-2 w-full max-w-lg rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-lg">
+                <Menu.Items className={ChooseNetworkStyle.menuItems}>
                     <div className="py-1">
                         {options.map((network) => (
                             <Menu.Item key={network.value}>
                                 {({ active }) => (
                                     <button
                                         onClick={() => handleSelect(network)}
-                                        className={`flex items-center p-2 w-full text-left cursor-pointer ${active ? 'bg-gray-100 dark:bg-gray-700' : ''}`}
+                                        className={`${ChooseNetworkStyle.menuItem} ${active ? ChooseNetworkStyle.active : ''}`}
                                     >
                                         <img
                                             src={network.icon}
                                             alt={network.label}
-                                            className="w-6 h-6 mr-2"
+                                            className={ChooseNetworkStyle.icon}
                                         />
                                         {network.label}
                                     </button>

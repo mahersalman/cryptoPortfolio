@@ -2,67 +2,36 @@ import React, { useState, useEffect } from 'react';
 import AssetsTable from './AssetsTable';
 import TransactionTable from './TransactionTable';
 import TabButtons from './TabButtons';
-import { getUrlString } from '../utils/urlUtils';  
 import BestPerformingTable from './BestPerformingTable';
 import MainData from './MainData';
+import { getUrlString } from '../utils/urlUtils';
+import { processWalletData } from '../utils/walletUtils';
 
-export function processWalletData(data) {
-    const result = {};
-
-    // Add Ethereum (ETH) to the dictionary
-    if (data.ETH && data.ETH.price) {
-        const ethBalanceInUsd = data.ETH.balance * data.ETH.price.rate;
-        result['ETH'] = {
-            name: 'Ethereum',
-            decimals: 18, 
-            price: data.ETH.price,
-            balance: data.ETH.balance,
-            balanceInUsd: ethBalanceInUsd
-        };
-    }
-
-    // Iterate over all tokens and add them if they have a price
-    data.tokens.map((token) => {
-        const { tokenInfo, balance } = token;
-        const { price, symbol, decimals, name } = tokenInfo;
-
-        // Check if the token has a valid price
-        if (price && price.rate) {
-            const balanceInUsd = (balance / Math.pow(10, decimals)) * price.rate;
-
-            // Add the token to the result dictionary
-            result[symbol] = {
-                name: name,
-                decimals: parseInt(decimals, 10),
-                price: price,
-                balance: balance / Math.pow(10, decimals), // Convert balance to human-readable format
-                balanceInUsd: balanceInUsd
-            };
-        }
-    });
-    return Object.entries(result);
-}
-
-// Main component for displaying wallet data
+/**
+ * WalletData fetches and displays wallet data including assets, transactions, and best-performing tokens.
+ * @param {Object} props - Component props.
+ * @param {Object} props.wallet - The wallet object containing network and address information.
+ * @returns {JSX.Element} The rendered WalletData component.
+ */
 function WalletData({ wallet }) {
     const [tokens, setTokens] = useState(null); 
     const [activeTab, setActiveTab] = useState(null);
 
-    
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const url = getUrlString(wallet.Network, 'getAddressInfo', wallet.Address);
-
                 const response = await fetch(url);
+
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
+
                 const json = await response.json();
                 const data = processWalletData(json);
                 setTokens(data);
             } catch (error) {
-                console.log("Error : " ,error);
+                console.log("Error:", error);
             } 
         };
 
@@ -74,10 +43,9 @@ function WalletData({ wallet }) {
     return (
         <>
             <div className=''>
-                <MainData address={wallet.Address} tokens = {tokens}/>
+                <MainData address={wallet.Address} tokens={tokens} />
             </div>
             <div className="mt-4">
-                {/* Title or explanation for the tabs */}
                 <h2 className="pl-4 text-base font-medium text-gray-700 mb-2">
                     Choose an option below to view detailed information:
                 </h2>
@@ -94,4 +62,3 @@ function WalletData({ wallet }) {
 }
 
 export default WalletData;
-

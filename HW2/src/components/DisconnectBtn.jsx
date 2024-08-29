@@ -1,22 +1,35 @@
 import React from 'react';
 import { useDisconnect } from 'wagmi';
+import { DisconnectButtonStyle } from '../styles/DisconnectButtonStyle';
 
+/**
+ * DisconnectBtn component provides a button for disconnecting the user's wallet.
+ * @param {Object} props - The props for the component.
+ * @param {Function} props.handleDisconnect - Function to handle wallet disconnect events.
+ * @returns {JSX.Element} The rendered DisconnectBtn component.
+ */
 function DisconnectBtn({ handleDisconnect }) {
+    // Hook to get the disconnect function from wagmi
     const { disconnectAsync } = useDisconnect();
 
+    /**
+     * Handles the disconnection of the wallet.
+     * Calls the disconnect function and then updates the parent component to reflect the disconnection state.
+     * @async
+     */
     async function disconnectWallet() {
-        await disconnectAsync(); // Wait for the disconnection to complete
-        handleDisconnect("", "", false); // Then update the state
+        await disconnectAsync(); 
+        handleDisconnect("", "", false);
     }
-    
-      return (
+
+    return (
         <button
-          onClick={disconnectWallet}
-          className="w-full bg-[#e03636] dark:bg-blue-600 text-black dark:text-white font-bold p-4 text-xl rounded-2xl hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 sm:mx-0"
-          >
+          onClick={disconnectWallet} 
+          className={DisconnectButtonStyle.btn} 
+        >
           Disconnect
         </button>
-      );
+    );
 }
 
 export default DisconnectBtn;

@@ -1,15 +1,13 @@
 import React, { useState, useContext } from 'react';
-import { ThemeContext } from './ThemeContext'; // Import ThemeContext
 import { TabButtonsStyle } from '../styles/TabButtonsStyle'; // Import unified theme classes
 
 const TabButtons = ({ setActiveTab }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-  //const { theme } = useContext(ThemeContext); // Get the current theme
-
+    /**
+   * TabButtons component displays a set of tab buttons that allow users to switch between different views.
+   * @param {Object} props - Component props.
+   * @param {Function} props.setActiveTab - Function to set the currently active tab.
+   * @returns {JSX.Element} The rendered TabButtons component.
+   */
   const [activeButton, setActiveButton] = useState('');
   const [tabOpen, setTabOpen] = useState({
     assets: false,

@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
+import { walletAddressStyles } from '../styles/WalletAddressStyle';
 
+/**
+ * WalletAddress component displays the wallet address and provides a button to copy it to the clipboard.
+ * @param {Object} props - Component props.
+ * @param {string} props.address - The wallet address to display.
+ * @param {Function} props.handleDisconnect - Function to handle disconnecting the wallet (not used in this component but passed in).
+ * @returns {JSX.Element} The rendered WalletAddress component.
+ */
 function WalletAddress({ address, handleDisconnect }) {
     const [copied, setCopied] = useState(false);
 
@@ -11,33 +19,30 @@ function WalletAddress({ address, handleDisconnect }) {
     }
 
     return (
-        <>
-        <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full">
-            <div className="flex flex-col items-center sm:items-start w-full">
-                <h1 className="text-lg sm:text-xl font-semibold text-gray-700 dark:text-gray-300">
+        <div className={walletAddressStyles.container}>
+            <div className={walletAddressStyles.addressSection}>
+                <h1 className={walletAddressStyles.title}>
                     Wallet Address:
                     <button
                         onClick={copyAddress}
-                        className= "space-x-2 text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 focus:outline-none"
+                        className={walletAddressStyles.copyButton}
                         title="Copy Address"
                     >
                         {copied ? (
-                            <span className="text-green-500 dark:text-green-400">✔</span>
+                            <span className={walletAddressStyles.copiedIcon}>✔</span>
                         ) : (
                             <span>📋</span>
                         )}
                         <span>{copied ? 'Copied!' : 'Copy'}</span>
                     </button>
                 </h1>
-                <div className="flex items-center space-x-2 w-full">
-                    <p className="text-sm sm:text-base md:text-lg font-medium text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 py-2 px-4 rounded-md border border-gray-200 dark:border-gray-600 w-full">
+                <div className={walletAddressStyles.addressWrapper}>
+                    <p className={walletAddressStyles.addressText}>
                         {address}
                     </p>
                 </div>
-
             </div>
         </div>
-        </>
     );
 }
 

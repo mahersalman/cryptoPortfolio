@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCoinIcon } from './useCoinIcon'; // Adjust the path as necessary
+import { useCoinIcon } from './useCoinIcon';
 
 function CryptoIcon({ coinId }) {
   const { iconUrl, error } = useCoinIcon(coinId);

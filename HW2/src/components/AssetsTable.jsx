@@ -3,12 +3,19 @@ import TokenRow from './TokenRow';
 import { AssestsTableStyle } from "../styles/AssetsTableStyle"; // Import unified theme classes
 import { getImages } from '../utils/coinGecko';
 
-
+/**
+ * AssetsTable component displays a table of tokens with their details.
+ * @param {Object[]} tokens - Array of token data, where each token is represented by [symbol, data].
+ * @returns {JSX.Element} The rendered AssetsTable component.
+ */
 const AssetsTable = ({ tokens }) => {
   const [iconsMap, setIconsMap] = useState({});
 
   useEffect(() => {
     const fetchIcons = async () => {
+      /**
+      Fetches token icons from an external source and updates the state.
+     */
       if (tokens && tokens.length > 0) {
         const tokenNames = tokens.map(([symbol, data]) => data.name);
         const images = await getImages(tokenNames);
@@ -20,7 +27,7 @@ const AssetsTable = ({ tokens }) => {
   }, [tokens]);
 
   return (
-    <div id="AssetsTable" className={`${AssestsTableStyle.tableContainer} overflow-x-auto max-h-[calc(50vh)] overflow-y-auto`}>
+    <div id="AssetsTable" className={`${AssestsTableStyle.tableContainer}`}>
       <table className={`${AssestsTableStyle.table} w-full`}>
         <thead className={AssestsTableStyle.thead}>
           <tr>
