@@ -43,7 +43,7 @@ export const fetchTrendingCoins = async (currency, setTrending) => {
       );
   
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        console.log(`Error HTTP error! status: ${response.status}`);
       }
   
       const data = await response.json();

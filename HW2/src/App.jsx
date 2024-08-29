@@ -6,14 +6,19 @@ import WalletData from './components/WalletData';
 import WalletAddress from './components/WalletAddress';
 import ChooseNetwork from './components/ChooseNetwork';
 import DisconnectBtn from './components/DisconnectBtn';
+import { containerStyles, contentStyles } from './styles/AppStyles';
 
+/**
+ * App component serves as the main container for the application.
+ * It displays the navigation bar, wallet data, and handles user authentication and network changes.
+ * @returns {JSX.Element} The rendered App component.
+ */
 function App() {
   const [wallet, setWallet] = React.useState({
     Address: '',
     Network: '',
     isConnected: false,
   });
-
   const handleStatus = (address, network, isConnected) => {
     setWallet({
       Address: address,
@@ -29,19 +34,18 @@ function App() {
     });
   };
 
-  // Set dark mode based on localStorage
   useEffect(() => {
     const theme = localStorage.getItem('theme') || 'light';
     document.documentElement.classList.toggle('dark', theme === 'dark');
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 text-black dark:bg-gray-800 dark:text-white">
+    <div className={containerStyles}>
       <Web3ModalProvider>
         <NavBar />
         {wallet.isConnected ? (
           <div>
-            <div className="flex flex-col md:flex-col lg:flex-row lg:space-x-6 space-y-4 lg:space-y-0 items-center p-4 rounded-lg shadow-2xl max-w-fit mx-auto">
+            <div className={contentStyles}>
               <DisconnectBtn handleDisconnect={handleStatus} />
               <WalletAddress address={wallet.Address} handleDisconnect={handleStatus} />
               <ChooseNetwork handleChangeNetwork={handleChangeNetwork}/>
