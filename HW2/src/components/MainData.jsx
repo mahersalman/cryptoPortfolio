@@ -40,7 +40,7 @@ function MainData({ address, tokens }) {
   }, [tokens]);
 
   return (
-    <div className="p-6 sm:p-8 lg:p-12"> {/* Added padding */}
+    <div className="p-6 sm:p-8 lg:p-12">
       <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
         <div className="p-4 bg-white dark:bg-gray-800 rounded-lg text-gray-900 dark:text-blue-50 w-full sm:w-80 h-64 sm:h-72 flex items-center justify-center border border-gray-300 dark:border-gray-600">
           <div className="text-center">

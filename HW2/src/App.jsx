@@ -7,6 +7,7 @@ import Banner from './components/Banner';
 import NavBar from './components/NavBar'
 import WalletData from './components/WalletData';
 import WalletAddress from './components/WalletAddress';
+import ChooseNetwork from './components/ChooseNetwork';
 
 function App() {
   const [wallet, setWallet] = useState({
@@ -23,6 +24,12 @@ function App() {
     });
   };
 
+  const handleChangeNetwork = (network) => {
+    setWallet({
+      ...wallet,
+      Network: network});
+    };
+
   return (
     <ThemeProvider>
       <ThemeContext.Consumer>
@@ -36,12 +43,15 @@ function App() {
               <NavBar/>
               {wallet.isConnected ? (
                 <div>
-                  <WalletAddress address={wallet.Address} handleDisconnect={handleStatus} />
+                  <div className="flex flex-col lg:gap-20 sm:flex-row items-center p-4  dark:bg-gray-800 rounded-lg shadow-2xl dark:text-gray-50 max-w-fit mx-auto ">
+                    <WalletAddress address={wallet.Address} handleDisconnect={handleStatus} />
+                    <ChooseNetwork handleChangeNetwork={handleChangeNetwork}/>
+                  </div>
                  {<WalletData wallet={wallet} />} 
                 </div>
               ) : (
                 <div>
-                    <Banner handleConnect={handleStatus}/>  
+                    <Banner handleConnect={handleStatus} />  
                 </div>
 
               )}
